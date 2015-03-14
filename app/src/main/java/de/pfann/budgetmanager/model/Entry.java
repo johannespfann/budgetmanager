@@ -20,6 +20,7 @@ public class Entry {
 
     private boolean isSycronizedWithDB;
 
+    /*
     public Entry(final String aName,final double aSum,final String aMemo,final String aTimestamp, final Category aCategory, final Tag aTag) {
         isSycronizedWithDB = false;
         name = aName;
@@ -33,6 +34,7 @@ public class Entry {
             tag = aTag;
         }
     }
+    */
 
     public int getId() {
         if(id == null) {

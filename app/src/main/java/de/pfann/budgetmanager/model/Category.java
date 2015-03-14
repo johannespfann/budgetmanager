@@ -10,11 +10,13 @@ public class Category {
 
     private boolean isSycronizedWithDB;
 
+    /*
     public Category(final String aName){
         isSycronizedWithDB = false;
         name = aName;
 
     }
+    */
 
     public int getId() {
         if (id == null) {

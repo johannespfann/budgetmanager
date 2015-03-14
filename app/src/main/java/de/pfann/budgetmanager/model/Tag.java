@@ -5,8 +5,6 @@ package de.pfann.budgetmanager.model;
  */
 public class Tag {
 
-
-
     public static Tag getDefaultTag(){
         return new Tag();
     }
