@@ -39,16 +39,18 @@ public class EntryMapper {
         mSQLiteDb.close();
     }
 
-    public Entry persistEntry(final String aName, final double aSum, final Category aCategory) {
+    public Entry persistEntry(final String aName, final double aSum,final String aMemo, final Category aCategory) {
         ContentValues values = new ContentValues();
         values.put(Entry.NAME,aName);
         values.put(Entry.SUM,aSum);
         values.put(Entry.CATEGORY_ID,aCategory.getId());
+        values.put(Entry.MEMO,aMemo);
         long entryId = mSQLiteDb.insert(Entry.TABLE_NAME,null,values);
         Entry newEntry = new Entry();
         newEntry.setId(entryId);
         newEntry.setName(aName);
         newEntry.setSum(aSum);
+        newEntry.setMemo(aMemo);
         newEntry.setCategory(aCategory);
         newEntry.setTags(new ArrayList<Tag>());
         return newEntry;
@@ -63,6 +65,8 @@ public class EntryMapper {
         values.put(Entry.NAME,aEntry.getName());
         values.put(Entry.SUM,aEntry.getSum());
         values.put(Entry.CATEGORY_ID,aEntry.getCategoryId());
+        values.put(Entry.MEMO,aEntry.getMemo());
+        values.put(Entry.TAGS,aEntry.getTagsAsString());
         mSQLiteDb.update(Entry.TABLE_NAME,values,Entry.ENTRY_ID + " = " + aEntry.getId(),null);
     }
 
@@ -77,23 +81,16 @@ public class EntryMapper {
                 newEntry.setName(aCursor.getString(aCursor.getColumnIndex(Entry.NAME)));
                 newEntry.setSum(aCursor.getLong(aCursor.getColumnIndex(Entry.SUM)));
                 newEntry.setCategory(aCategory);
-                newEntry.setTags(getAllTagsByEntryId(newEntry.getId()));
-
+                newEntry.setTags(getAllTags(aCategory,aCursor));
+                newEntry.setMemo(aCursor.getString(aCursor.getColumnIndex(Entry.MEMO)));
             }while(aCursor.moveToNext());
         }
-
-
-
-        // Es fehlen die tags ... die will ich mir von der Category holen und prüfen welches Objekt ich mir wo hinhänge...
-
+        return entries;
     }
 
-    private List<Tag> getAllTagsByEntryId(final long aEntryId){
-        /*
-        1. Alle Tags mit der entryId holen
-        2. vergleichen ob in Category?
-        3. Tag von Category holen und in Liste packen
-         */
+    private List<Tag> getAllTags(final Category aCategory,final Cursor aCursor){
+        String tagsAsString = aCursor.getString(aCursor.getColumnIndex(Entry.TAGS));
+        return Entry.convertTagsToObjects(aCategory,tagsAsString);
     }
 
 

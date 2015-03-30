@@ -38,7 +38,6 @@ public class CategoryMapper {
     }
 
     public Category persistCategory(final String aName) {
-        openWriteAbleDB();
         Category newCategory = new Category();
         ContentValues values = new ContentValues();
         values.put(Category.NAME, aName);
@@ -46,8 +45,19 @@ public class CategoryMapper {
         newCategory.setId(categoryId);
         newCategory.setName(aName);
         newCategory.setTags(new ArrayList<Tag>());
-        closeDB();
         return newCategory;
+    }
+
+    public Tag persistTag(final String aName,final Category aCategory){
+        Tag newTag = new Tag();
+        ContentValues values = new ContentValues();
+        values.put(Tag.NAME,aName);
+        values.put(Tag.CATEGORY_ID,aCategory.getId());
+        long tagId = mSQLiteDb.insert(Tag.TABLE_NAME,null,values);
+        newTag.setId(tagId);
+        newTag.setName(aName);
+        newTag.setCategory_id(aCategory.getId());
+        return newTag;
     }
 
     public List<Category> getAllCategories() {

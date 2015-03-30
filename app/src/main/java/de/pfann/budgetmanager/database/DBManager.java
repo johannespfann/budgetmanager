@@ -7,11 +7,6 @@ public class DBManager {
 
     private static DBManager instance;
 
-    private EntryDataAccesObject;
-
-    private CategoryDataAccessObject;
-
-
     private DBManager(){
         // Default
     }

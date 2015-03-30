@@ -27,6 +27,8 @@ public class BudgetDBHelper extends SQLiteOpenHelper{
             Entry.SUM + " NUMERIC NOT NULL," +
             Entry.TIMESTAMP + " DATETIME DEFAULT CURRENT_DATE," +
             Entry.CATEGORY_ID + " INTEGER," +
+            Entry.TAGS + "TEXT," +
+            Entry.MEMO + "TEXT," +
             "FOREIGN KEY("+Entry.CATEGORY_ID+") REFERENCES "+ Category.TABLE_NAME+"("+Category.CATEGORY_ID+"));";
     private static final String CREATE_TABLE_CATEGORY_STATEMENT = "CREATE TABLE "+ Category.TABLE_NAME + "("+Category.CATEGORY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT," +
             Category.NAME +" TEXT NOT NULL)";
@@ -34,11 +36,7 @@ public class BudgetDBHelper extends SQLiteOpenHelper{
             Tag.NAME + " TEXT NOT NULL," +
             Tag.CATEGORY_ID + " INTEGER," +
             "FOREIGN KEY("+Tag.CATEGORY_ID+") REFERENCES " + Category.TABLE_NAME+"("+Category.CATEGORY_ID+"));";
-    private static final String CREATE_TABLE_ENTRYTAG_STATEMENT = "CREATE TABLE " + EntryTagTable.TABLE_NAME + "(" + EntryTagTable.ENTRY_TAG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            EntryTagTable.ENTRY_ID + " INTEGER," +
-            EntryTagTable.TAG_ID + " INTEGER," +
-            "FOREIGN KEY("+EntryTagTable.ENTRY_ID + ") REFERENCES " + Entry.TABLE_NAME + "("+Entry.ENTRY_ID+")," +
-            "FOREIGN KEY("+EntryTagTable.TAG_ID+") REFERENCES " + Category.TABLE_NAME+"("+Category.CATEGORY_ID+"));";
+
 
 
 
@@ -56,8 +54,6 @@ public class BudgetDBHelper extends SQLiteOpenHelper{
         db.execSQL(CREATE_TABLE_ENTRY_STATEMENT);
         Log.i(LOG_TAG,CREATE_TABLE_TAG_STATEMENT);
         db.execSQL(CREATE_TABLE_TAG_STATEMENT);
-        Log.i(LOG_TAG,CREATE_TABLE_ENTRYTAG_STATEMENT);
-        db.execSQL(CREATE_TABLE_ENTRYTAG_STATEMENT);;
     }
 
     @Override
