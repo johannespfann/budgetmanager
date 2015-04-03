@@ -1,43 +1,63 @@
 package de.pfann.budgetmanager.model;
 
-import java.sql.Timestamp;
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import de.pfann.budgetmanager.database.DatabaseContext;
+import de.pfann.budgetmanager.database.tables.EntryTable;
 
 /**
  * Created by johannes on 14.03.15.
  */
-public class Entry {
-
-
-    public static final String TABLE_NAME = "Entry";
-    public static final String ENTRY_ID = "entry_id";
-    public static final String NAME = "entry_name";
-    public static final String SUM = "entry_sum";
-    public static final String TIMESTAMP = "entry_timestamp";
-    public static final String CATEGORY_ID = "entry_category_id";
-    public static final String TAGS = "entry_tags";
-    public static final String MEMO = "entry_memo";
-    public static final String elementSeperator = "__";
+public class Entry implements EntryTable, Persistent{
 
     private long id;
     private String name;
     private double sum;
-    private String memo; // notiz ;-)
-    private Timestamp timestamp;
-
+    private String memo;
+    private String currentDate;
     private Category category;
     private List<Tag> tags;
 
-    private String tagsAsString;
+    private boolean isDirty;
+    private DatabaseContext mDatabaseContext;
 
+    public Entry(DatabaseContext aDatabaseContext,final String aName,final double aSum, final String aMemo,final Category aCategory){
+        id = 0;
+        name = aName;
+        sum = aSum;
+        memo = aMemo;
+        currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        category = aCategory;
+        tags = new ArrayList<>();
+        mDatabaseContext = aDatabaseContext;
+        isDirty = true;
+    }
 
+    public Entry(DatabaseContext aDatabaseContext,final String aName,final double aSum, final String aMemo,final Category aCategory,final List<Tag> aTags){
+        id = 0;
+        name = aName;
+        sum = aSum;
+        memo = aMemo;
+        currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        category = aCategory;
+        tags = aTags;
+        isDirty = true;
+    }
 
-
-    public void setId(long aId) {
-       id = aId;
+    public Entry(DatabaseContext aDatabaseContext,final long aId,final String aName,final double aSum, final String aMemo, String aCurrentDate, final Category aCategory,final List<Tag> aTags){
+        id = aId;
+        name = aName;
+        sum = aSum;
+        memo = aMemo;
+        currentDate = aCurrentDate;
+        category = aCategory;
+        tags = aTags;
+        isDirty = false;
     }
 
     public long getId() {
@@ -46,6 +66,7 @@ public class Entry {
 
     public void setName(String aName) {
         name = aName;
+        isDirty();
     }
 
     public String getName() {
@@ -54,6 +75,7 @@ public class Entry {
 
     public void setSum(double aSum) {
         this.sum = aSum;
+        isDirty();
     }
 
     public double getSum(){
@@ -62,6 +84,7 @@ public class Entry {
 
     public void setCategory(Category aCategory) {
         category = aCategory;
+        isDirty();
     }
 
     public Category getCategory(){
@@ -74,6 +97,7 @@ public class Entry {
 
     public void setMemo(String memo) {
         this.memo = memo;
+        isDirty();
     }
 
     public String getMemo() {
@@ -84,31 +108,29 @@ public class Entry {
         return tags;
     }
 
+    public boolean isDirty(){
+        return isDirty;
+    }
+
     public void addTag(final Tag aTag){
         tags.add(aTag);
-        tagsAsString = convertTagsToString(tags);
+        isDirty();
     }
 
     public void deleteTag(final Tag aTag){
         if(tags.contains(aTag)){
             tags.remove(aTag);
-            tagsAsString = convertTagsToString(tags);
+            isDirty();
         }
     }
 
-    public void setTags(List<Tag> aTags) {
-        if(aTags.size() > 0){
-            tagsAsString = convertTagsToString(aTags);
-        }
-        tags = aTags;
-    }
 
     public String getTagsAsString() {
-        return tagsAsString;
+        return convertTagsToString(tags);
     }
 
 
-    public String convertTagsToString(List<Tag> aTags){
+    public static String convertTagsToString(List<Tag> aTags){
         StringBuilder stringBuilder = new StringBuilder();
         for(int index = 0;index < aTags.size();index ++){
             stringBuilder.append(aTags.get(index).getName());
@@ -119,15 +141,26 @@ public class Entry {
         return stringBuilder.toString();
     }
 
-    public static List<Tag> convertTagsToObjects(final Category aCategory,final String aString){
+    public static List<Tag> convertStringToTagObject(final Category aCategory,final String aString){
         List<Tag> tags = new ArrayList<>();
+        List<Tag> tempTags = aCategory.getTags();
         String[] strings = aString.split(elementSeperator);
         for(String element : strings){
-            Tag newTag = new Tag();
-            newTag.setCategory_id(aCategory.getId());
-            tags.add(newTag);
+            for(Tag tag : tempTags){
+                if(tag.getName().equals(element)){
+                    tags.add(tag);
+                }
+                else{
+                    Log.i("","Tag was not known by Category: " + element + " in: " + aCategory.getName());
+                }
+            }
         }
         return tags;
+    }
+
+    @Override
+    public void setDirty() {
+        isDirty = true;
     }
 
 }

@@ -1,42 +1,77 @@
 package de.pfann.budgetmanager;
 
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import de.pfann.budgetmanager.database.BudgetDBHelper;
+import android.app.Activity;
+
+import android.app.Notification;
+import android.os.Bundle;
+
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+
+import android.widget.ListView;
+
+
+import de.pfann.budgetmanager.database.DBInput;
+
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private static final String LOG_TAG = "BudgetManager_Main";
+
+    private String[] mPlanetTitles;
+    private DrawerLayout mDrawerLayout;;
+    private ListView mDrawerList;
+    private int[] mIcons;
+    private String mTitle = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BudgetDBHelper db = new BudgetDBHelper(getApplicationContext());
+        new DBInput().invoke(getApplicationContext());
 
-        long category_id = db.createCategory("Lifestyle And More");
 
-        long tag_id1 = db.createTag("war unwichtig",category_id);
-        long tag_id2 = db.createTag("naja",category_id);
-        long tag_id3 = db.createTag("asdf",category_id);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
 
-        long[] longarray = new long[3];
-        longarray[0] = tag_id1;
-        longarray[1] = tag_id2;
-        longarray[2] = tag_id3;
-        db.createEntry("Feiern", -25 , category_id, longarray);
-        db.showAllTables();
+
+        mTitle = "test";
+
+        mPlanetTitles = new String[]{"Erste Page","Zweite Page","Dritte Page"};
+        mIcons = new int[]{R.drawable.ic_action_next_item,R.drawable.ic_action_next_item,R.drawable.ic_action_next_item};
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        MenuListAdapter mMenuAdapter = new MenuListAdapter(this,mPlanetTitles,mIcons);
+
+        mDrawerList.setAdapter(mMenuAdapter);
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+
+
+
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menue, menu);
+        return super.onCreateOptionsMenu(menu);
     }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -45,6 +80,16 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if(id == R.id.bla){
+            Log.i(LOG_TAG,"bla was pressed");
+            boolean isDrawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+            if(isDrawerOpen){
+                mDrawerLayout.closeDrawer(mDrawerList);
+            }
+            else {
+                mDrawerLayout.openDrawer(mDrawerList);
+            }
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -52,4 +97,20 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Log.i(LOG_TAG,"Position: " + position);
+       }
+
+
+
+    }
+
+
+
+
 }

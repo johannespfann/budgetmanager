@@ -1,9 +1,12 @@
 package de.pfann.budgetmanager.model;
 
+import de.pfann.budgetmanager.database.DatabaseContext;
+import de.pfann.budgetmanager.database.tables.TagTable;
+
 /**
  * Created by johannes on 14.03.15.
  */
-public class Tag {
+public class Tag implements TagTable,Persistent{
 
     public static final String TABLE_NAME = "Tag";
     public static final String TAG_ID = "tag_id";
@@ -11,10 +14,26 @@ public class Tag {
     public static final String CATEGORY_ID = "tag_category_id";
 
 
+    private boolean isDirty;
+
     private long id;
-    private long category_id;
+    private Category category;
     private String name;
 
+
+    public Tag(DatabaseContext aDatabaseContext,final String aName,final Category aCategory){
+        id = 0;
+        name = aName;
+        category = aCategory;
+        isDirty = true;
+    }
+
+    public Tag(DatabaseContext aDatabaseContext,final long aId,final String aName,final Category aCategory){
+        id = aId;
+        name = aName;
+        category = aCategory;
+        isDirty = false;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -32,11 +51,16 @@ public class Tag {
         return name;
     }
 
-    public void setCategory_id(long category_id) {
-        this.category_id = category_id;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public long getCategory_id() {
-        return category_id;
+    public Category getCategory() {
+        return category;
+    }
+
+    @Override
+    public void setDirty() {
+        isDirty = true;
     }
 }
