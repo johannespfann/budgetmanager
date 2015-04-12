@@ -1,0 +1,21 @@
+\select@language {ngerman}
+\contentsline {chapter}{\numberline {1}Projektdefinition}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Projektmotivation}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Projektziele}{3}{section.1.2}
+\contentsline {section}{\numberline {1.3}Produktergebnisse}{3}{section.1.3}
+\contentsline {section}{\numberline {1.4}Projektstrategie}{4}{section.1.4}
+\contentsline {section}{\numberline {1.5}Stakeholder des Projekts}{4}{section.1.5}
+\contentsline {section}{\numberline {1.6}Mitwirkungspflicht des Auftraggebers}{4}{section.1.6}
+\contentsline {section}{\numberline {1.7}Projektorganisation und Projektteam}{4}{section.1.7}
+\contentsline {section}{\numberline {1.8}Annahmen, Chancen und Risiken}{4}{section.1.8}
+\contentsline {chapter}{\numberline {2}Qualit\IeC {\"a}tsplan}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Codeconvension}{6}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Styles}{6}{subsection.2.1.1}
+\contentsline {paragraph}{\nonumberline Style - Dateinamen}{6}{section*.2}
+\contentsline {paragraph}{\nonumberline Stylename}{6}{section*.3}
+\contentsline {subsection}{\numberline {2.1.2}Text}{6}{subsection.2.1.2}
+\contentsline {paragraph}{\nonumberline Text-Datei}{7}{section*.4}
+\contentsline {paragraph}{\nonumberline Textname}{7}{section*.5}
+\contentsline {subsection}{\numberline {2.1.3}Git Commitmessage-convention}{7}{subsection.2.1.3}
+\contentsline {chapter}{\numberline {3}Projektplan}{8}{chapter.3}
+\contentsline {section}{\numberline {3.1}Projektumfang}{9}{section.3.1}

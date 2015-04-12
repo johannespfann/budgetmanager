@@ -1,0 +1,8 @@
+* Strukturen für Values aufbaun
+* Einträge hinzufügen
+	* Menupunkt vs. ActionBar-Button
+	* Seite zum Erstellen der Einträge
+* Icon zum HInzufügen 
+* Styles aufbaun 
+	* Styles cleanen
+

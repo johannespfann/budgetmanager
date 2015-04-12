@@ -1,4 +1,4 @@
-package de.pfann.budgetmanager;
+package de.pfann.budgetmanager.activities;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,27 +8,29 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import de.pfann.budgetmanager.R;
+
 /**
- * Created by johannes on 02.04.15.
+ * Created by johannes on 11.04.15.
  */
-public class MenuListAdapter extends BaseAdapter {
-    private Context context;
+public class NavigationDrawerItemAdapter extends BaseAdapter{
+    private Context mContext;
     private String[] mTitle;
     private int[] mIcon;
     private LayoutInflater inflater;
 
-    public MenuListAdapter(Context pContext, String[] pTitle, int[] pIcon) {
-        context = pContext;
-        mTitle = pTitle;
-        mIcon = pIcon;
+    public NavigationDrawerItemAdapter(Context aContext, String[] aTitle, int[] aIcon){
+    mContext = aContext;
+        mTitle = aTitle;
+        mIcon = aIcon;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(R.layout.drawer_layout_item, parent, false);
+        inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View itemView = inflater.inflate(R.layout.drawer_list_item, parent, false);
 
-        TextView txtTitle = (TextView) itemView.findViewById(R.id.drawer_layout_item_textview);
-        ImageView imgIcon = (ImageView) itemView.findViewById(R.id.drawer_layout_item_icon);
+        TextView txtTitle = (TextView) itemView.findViewById(R.id.title);
+        ImageView imgIcon = (ImageView) itemView.findViewById(R.id.icon);
 
         txtTitle.setText(mTitle[position]);
         imgIcon.setImageResource(mIcon[position]);
@@ -50,5 +52,4 @@ public class MenuListAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
 }
