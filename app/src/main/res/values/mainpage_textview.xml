@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mainpage_textview_header1">Budget</string>
+    <string name="mainpage_textview_header2">Manager</string>
+</resources>
