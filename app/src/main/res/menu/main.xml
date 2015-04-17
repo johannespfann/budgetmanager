@@ -2,6 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="de.pfann.budgetmanager.activities.MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionbar_settings"
+        android:title="@string/actionbar_actiontext_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/actionbar_getAddEntryView"
+        android:title="@string/actionbar_actiontext_addentry"
+        android:icon="@drawable/ic_action_new_event"
+        app:showAsAction="ifRoom">
+    </item>
 </menu>

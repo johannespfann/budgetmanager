@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="actionbar_actiontext_addentry">Eintrag hinzufügen</string>
+    <string name="actionbar_actiontext_help">Hilfe</string>
+    <string name="actionbar_actiontext_settings">Einstellungen</string>
+
+</resources>

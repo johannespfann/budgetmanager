@@ -30,7 +30,7 @@ public class AddEntryActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_entry, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -54,7 +54,7 @@ public class AddEntryActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.actionbar_settings) {
             return true;
         }
 

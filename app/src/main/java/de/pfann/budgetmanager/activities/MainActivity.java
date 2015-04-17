@@ -34,16 +34,20 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i(LOG_TAG,"Start App!");
-
         new DBInput().invoke(getApplicationContext());
+        setupNavigationDrawer(R.id.navigation_drawer,R.id.drawer_layout);
 
+    }
+
+
+
+    private void setupNavigationDrawer(final int aNavigationDrawerId, final int aNavigationFrawerLayoutId) {
         mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+                getSupportFragmentManager().findFragmentById(aNavigationDrawerId);
         mTitle = getTitle();
-
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+                (DrawerLayout) findViewById(aNavigationFrawerLayoutId));
     }
 
     @Override
@@ -81,8 +85,12 @@ public class MainActivity extends ActionBarActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.actionbar_settings) {
             return true;
+        }
+        if(id == R.id.actionbar_getAddEntryView){
+            Intent intent = new Intent(this, AddEntryActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
