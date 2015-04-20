@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="addentryview_textviewhint_name">Name</string>
+    <string name="addentryview_textviewhint_sum">700 €</string>
+    <string name="addentryview_textview_sign">+</string>
+    <string name="addentryview_textviewhint_memo">Notiz</string>
+</resources>
