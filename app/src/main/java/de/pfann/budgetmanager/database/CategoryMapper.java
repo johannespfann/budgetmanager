@@ -50,7 +50,8 @@ public class CategoryMapper extends AbstractMapper {
     public List<Category> getAllCategories() {
         openReadAbleDB();
         List<Category> categories = new ArrayList<>();
-        Cursor aCursor = mSQLiteDb.rawQuery(Category.TABLE_NAME, null);
+        String statement = "SELECT * FROM " +Category.TABLE_NAME;
+        Cursor aCursor = mSQLiteDb.rawQuery(statement, null);
         if (aCursor != null && aCursor.moveToFirst()) {
             do {
                 categories.add(buildCategory(aCursor));

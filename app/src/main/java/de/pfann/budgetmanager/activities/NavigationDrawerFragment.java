@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +21,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.List;
+
 import de.pfann.budgetmanager.R;
+import de.pfann.budgetmanager.database.DBManager;
+import de.pfann.budgetmanager.database.DatabaseAccessorFacade;
+import de.pfann.budgetmanager.model.Category;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -71,6 +77,39 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        DBManager dbManager = DBManager.getInstance();
+        DatabaseAccessorFacade dbAccessor = dbManager.getDatabaseFacade();
+        List<Category> categories = dbAccessor.getAllCategories();
+
+        int oversize = 3;
+        int sizeOffList = categories.size() + oversize;
+
+        String[] listViewStrings = new String[sizeOffList];
+        int[] listViewIcons = new int[sizeOffList];
+
+        listViewStrings[0] = "Profil";
+        listViewIcons[0] = R.drawable.ic_action_person;
+
+        listViewStrings[1] = "History";
+        listViewIcons[1] = R.drawable.ic_action_clock;
+
+        listViewStrings[2] = "";
+        listViewIcons[2] = R.drawable;
+
+
+        listViewStrings[3] = "Allgemeine Statistik";
+        listViewIcons[3] = R.drawable.ic_action_line_chart;
+
+
+        Log.i(MainActivity.LOG_TAG,"" + categories.size());
+        Log.i(MainActivity.LOG_TAG,"" + sizeOffList);
+
+        for(int i = 0; i<categories.size();i++){
+            listViewStrings[i + oversize] = categories.get(i).getName();
+            listViewIcons[i + oversize] = R.drawable.ic_action_folder_tabs;
+        }
+
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,16 +119,7 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        mDrawerListView.setAdapter(new NavigationDrawerItemAdapter(getActivity().getApplicationContext(), new String[]{
-                getString(R.string.title_section1),
-                getString(R.string.title_section2),
-                getString(R.string.title_section3),
-        }, new int[]{
-                (R.drawable.ic_action_next_item),
-                (R.drawable.ic_action_line_chart),
-                (R.drawable.ic_action_person)
-        }
-        ));
+        mDrawerListView.setAdapter(new NavigationDrawerItemAdapter(getActivity().getApplicationContext(), listViewStrings, listViewIcons));
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;

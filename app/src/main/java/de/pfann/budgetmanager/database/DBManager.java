@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.pfann.budgetmanager.activities.MainActivity;
 import de.pfann.budgetmanager.model.Category;
 import de.pfann.budgetmanager.model.Persistent;
 
@@ -14,7 +15,7 @@ import de.pfann.budgetmanager.model.Persistent;
  */
 public class DBManager {
 
-    private static DBManager instance = null;
+    private static DBManager instance;
 
     private static final  String LOG_TAG = "DBManger";
 
@@ -47,6 +48,7 @@ public class DBManager {
     }
 
     public DatabaseAccessorFacade getDatabaseFacade(){
+        Log.i(MainActivity.LOG_TAG,"geDatabaseFacade");
         return mDbFacade;
     }
 

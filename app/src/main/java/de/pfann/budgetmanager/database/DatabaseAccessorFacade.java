@@ -32,6 +32,10 @@ public class DatabaseAccessorFacade {
         return mCategoryMapper.categoryAlreadyExits(aName);
     }
 
+    public List<Category> getAllCategories(){
+        return mCategoryMapper.getAllCategories();
+    }
+
     public void deleteCategory(final Category aCategory){
         List<Entry> entries = aCategory.getAllEntries();
         for(Entry entry : entries){
