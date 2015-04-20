@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,10 +9,10 @@
         android:title="@string/actionbar_text_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
-
-    <item android:id="@+id/actionbar_getAddEntryView"
-        android:title="@string/actionbar_text_addentry"
-        android:icon="@drawable/ic_action_new_event_w"
+    <item android:id="@+id/actionbar_addnewentry"
+        android:title="@string/actionbar_text_addnewentry"
+        android:icon="@drawable/ic_action_new_w"
         app:showAsAction="ifRoom">
     </item>
+
 </menu>

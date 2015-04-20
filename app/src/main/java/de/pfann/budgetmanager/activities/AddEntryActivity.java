@@ -1,5 +1,6 @@
 package de.pfann.budgetmanager.activities;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,11 @@ public class AddEntryActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_entry);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
         Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.planets_array, android.R.layout.simple_spinner_item);
@@ -26,15 +32,14 @@ public class AddEntryActivity extends ActionBarActivity {
         spinner.setAdapter(adapter);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.entry_add, menu);
         return true;
     }
 
-    public void chance(View aView){
+    public void change(View aView){
         TextView textview = (TextView) findViewById(R.id.plusminus);
         String currentText = String.valueOf(textview.getText());
         Log.i("","Wurde geklickt: " + currentText);
@@ -56,6 +61,10 @@ public class AddEntryActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.actionbar_settings) {
             return true;
+        }
+
+        if(id == android.R.id.home){
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);

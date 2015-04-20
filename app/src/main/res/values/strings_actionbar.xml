@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
+    <!-- Main_Actionbar-->
     <string name="actionbar_text_addentry">Eintrag hinzufügen</string>
     <string name="actionbar_text_help">Hilfe</string>
     <string name="actionbar_text_settings">Einstellungen</string>
+
+    <!-- AddNewEntry_Actionbar-->
+    <string name="actionbar_text_addnewentry">Neuen Eintrag hinzufügen</string>
+    <string name="actionbar_text_cancel">Abbrechen</string>
+
 
 </resources>

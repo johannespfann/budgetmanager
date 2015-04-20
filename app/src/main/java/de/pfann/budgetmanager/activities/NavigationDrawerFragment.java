@@ -82,8 +82,8 @@ public class NavigationDrawerFragment extends Fragment {
         DatabaseAccessorFacade dbAccessor = dbManager.getDatabaseFacade();
         List<Category> categories = dbAccessor.getAllCategories();
 
-        int oversize = 3;
-        int sizeOffList = categories.size() + oversize;
+        int oversize = 4;
+        int sizeOffList = categories.size() + oversize + 1;
 
         String[] listViewStrings = new String[sizeOffList];
         int[] listViewIcons = new int[sizeOffList];
@@ -91,24 +91,25 @@ public class NavigationDrawerFragment extends Fragment {
         listViewStrings[0] = "Profil";
         listViewIcons[0] = R.drawable.ic_action_person;
 
-        listViewStrings[1] = "History";
-        listViewIcons[1] = R.drawable.ic_action_clock;
+        listViewStrings[1] = "Daueraufträge";
+        listViewIcons[1] = R.drawable.ic_action_new_event;
 
-        listViewStrings[2] = "";
-        listViewIcons[2] = R.drawable;
-
+        listViewStrings[2] = "History";
+        listViewIcons[2] = R.drawable.ic_action_clock;
 
         listViewStrings[3] = "Allgemeine Statistik";
         listViewIcons[3] = R.drawable.ic_action_line_chart;
 
-
-        Log.i(MainActivity.LOG_TAG,"" + categories.size());
-        Log.i(MainActivity.LOG_TAG,"" + sizeOffList);
-
+        int lastone = 0;
         for(int i = 0; i<categories.size();i++){
             listViewStrings[i + oversize] = categories.get(i).getName();
             listViewIcons[i + oversize] = R.drawable.ic_action_folder_tabs;
+            lastone = i + oversize;
         }
+
+        listViewStrings[lastone + 1] = "Neue Kategorie";
+        listViewIcons[lastone + 1] = R.drawable.ic_action_add;
+
 
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
