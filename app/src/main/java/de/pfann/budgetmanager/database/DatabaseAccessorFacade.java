@@ -33,7 +33,11 @@ public class DatabaseAccessorFacade {
     }
 
     public List<Category> getAllCategories(){
-        return mCategoryMapper.getAllCategories();
+        List<Category> categories = mCategoryMapper.getAllCategories();
+        for(Category category : categories){
+            category.setTags(mTagMapper.getAllTagsByCategory(category));
+        }
+        return categories;
     }
 
     public void deleteCategory(final Category aCategory){

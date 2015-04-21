@@ -2,10 +2,12 @@ package de.pfann.budgetmanager.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.pfann.budgetmanager.activities.MainActivity;
 import de.pfann.budgetmanager.model.Category;
 import de.pfann.budgetmanager.model.Tag;
 
@@ -50,13 +52,14 @@ public class TagMapper extends AbstractMapper {
         openReadAbleDB();
         List<Tag> tags = new ArrayList<>();
         String[] projection = {Tag.TAG_ID
-                , Tag.CATEGORY_ID, Tag.NAME};
+                , Tag.NAME, Tag.CATEGORY_ID};
         String[] selectionArgs = {String.valueOf(aCategory.getId())};
-        Cursor aCursor = mSQLiteDb.query(Tag.TABLE_NAME, projection, Tag.CATEGORY_ID, selectionArgs, null, null, null);
-        aCursor.moveToFirst();
-        do {
-            tags.add(buildTag(aCategory, aCursor));
-        } while (aCursor.moveToNext());
+        Cursor aCursor = mSQLiteDb.query(Tag.TABLE_NAME, projection, Tag.CATEGORY_ID + " =?", selectionArgs, null, null, null);
+        if(aCursor != null && aCursor.moveToFirst()) {
+            do {
+                tags.add(buildTag(aCategory, aCursor));
+            } while (aCursor.moveToNext());
+        }
         closeDB();
         return tags;
     }

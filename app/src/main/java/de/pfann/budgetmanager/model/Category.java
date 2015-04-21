@@ -81,7 +81,6 @@ public class Category implements CategoryTable,Persistent{
     @Override
     public void setDirty() {
         isDirty = true;
-        setDirty();
     }
 
 }

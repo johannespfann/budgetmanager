@@ -145,10 +145,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight=".20"
-                android:src="@drawable/ic_action_folder_tabs" />
+                android:src="@drawable/ic_action_tags" />
 
             <Spinner
-                android:id="@+id/tags_spinner"
+                android:id="@+id/addentry_spinner_tags"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

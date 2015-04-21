@@ -35,13 +35,8 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         Log.i(LOG_TAG, "Start App!");
         new DBInput().invoke(getApplicationContext());
-
-
-
         setContentView(R.layout.activity_main);
-
         setupNavigationDrawer(R.id.navigation_drawer,R.id.drawer_layout);
-
     }
 
 

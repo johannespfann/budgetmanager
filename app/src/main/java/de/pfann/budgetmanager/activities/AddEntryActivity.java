@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,34 +30,70 @@ public class AddEntryActivity extends ActionBarActivity {
     private String mMemo;
     private List<Tag> mTags;
 
+    private Spinner mSpinnerCategory;
+    private Spinner mSpinnerTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_entry);
 
-
         DBManager dbManager = DBManager.getInstance();
-        DatabaseAccessorFacade dbAccessor =  dbManager.getDatabaseFacade();
+        final DatabaseAccessorFacade dbAccessor =  dbManager.getDatabaseFacade();
         mCategories = dbAccessor.getAllCategories();
-
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        mSpinnerCategory = (Spinner) findViewById(R.id.addentry_spinner_category);
+        mSpinnerTags = (Spinner) findViewById(R.id.addentry_spinner_tags);
 
+        List<String> dummyTags = new ArrayList<>();
+        dummyTags.add("Eintrag 1");
+        dummyTags.add("Eintrag 2");
+        dummyTags.add("Eintrag 3");
 
+        final ArrayAdapter arrayDummAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,dummyTags);
+        arrayDummAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerTags.setAdapter(arrayDummAdapter);
 
-        Spinner spinner = (Spinner) findViewById(R.id.addentry_spinner_category);
         List<String> categoriesAsString = new ArrayList<>();
         for(Category category : mCategories){
             categoriesAsString.add(category.getName());
         }
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,categoriesAsString);
-
+        final ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,categoriesAsString);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
+        mSpinnerCategory.setAdapter(arrayAdapter);
+        mSpinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinner spinnerCategory = (Spinner) findViewById(R.id.addentry_spinner_category);
+                Spinner spinnerTags = (Spinner) findViewById(R.id.addentry_spinner_tags);
+                String value = spinnerCategory.getSelectedItem().toString();
+
+                for(Category category : mCategories){
+                    if(category.getName().contains(value)){
+                        List<String> tagsAsStrings = new ArrayList<String>();
+                        for(Tag tag : category.getTags()){
+                            tagsAsStrings.add(tag.getName());
+                        }
+
+                        final ArrayAdapter arrayTagAdapter = new ArrayAdapter(view.getContext(),android.R.layout.simple_spinner_item,tagsAsStrings);
+                        arrayTagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerTags.setAdapter(arrayTagAdapter);
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                   Log.i(MainActivity.LOG_TAG,"nothing selected");
+            }
+        });
     }
 
     @Override
@@ -80,20 +117,13 @@ public class AddEntryActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.actionbar_settings) {
             return true;
         }
-
         if(id == android.R.id.home){
             onBackPressed();
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
