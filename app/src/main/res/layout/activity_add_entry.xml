@@ -50,7 +50,7 @@
                 android:src="@drawable/ic_action_folder_tabs" />
 
             <Spinner
-                android:id="@+id/planets_spinner"
+                android:id="@+id/addentry_spinner_category"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

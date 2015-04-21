@@ -11,25 +11,52 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.pfann.budgetmanager.R;
+import de.pfann.budgetmanager.database.DBManager;
+import de.pfann.budgetmanager.database.DatabaseAccessorFacade;
+import de.pfann.budgetmanager.model.Category;
+import de.pfann.budgetmanager.model.Tag;
 
 public class AddEntryActivity extends ActionBarActivity {
+
+    private String mName;
+    private List<Category> mCategories;
+    private String mCategory;
+    private double mSum;
+    private String mMemo;
+    private List<Tag> mTags;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_entry);
 
+
+        DBManager dbManager = DBManager.getInstance();
+        DatabaseAccessorFacade dbAccessor =  dbManager.getDatabaseFacade();
+        mCategories = dbAccessor.getAllCategories();
+
+
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.planets_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+
+
+        Spinner spinner = (Spinner) findViewById(R.id.addentry_spinner_category);
+        List<String> categoriesAsString = new ArrayList<>();
+        for(Category category : mCategories){
+            categoriesAsString.add(category.getName());
+        }
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,categoriesAsString);
+
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
     }
 
     @Override

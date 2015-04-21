@@ -1,6 +1,6 @@
 package de.pfann.budgetmanager.activities;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,9 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.pfann.budgetmanager.R;
-import de.pfann.budgetmanager.database.BudgetDBHelper;
 import de.pfann.budgetmanager.database.DBInput;
-import de.pfann.budgetmanager.database.DBManager;
+
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -36,7 +35,7 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         Log.i(LOG_TAG, "Start App!");
         new DBInput().invoke(getApplicationContext());
-        DBManager.getInstance();
+
 
 
         setContentView(R.layout.activity_main);
