@@ -1,5 +1,7 @@
 package de.pfann.budgetmanager.model;
 
+import android.content.ContentValues;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,20 +11,17 @@ import de.pfann.budgetmanager.database.tables.CategoryTable;
 /**
  * Created by johannes on 14.03.15.
  */
-public class Category implements CategoryTable,Persistent{
+public class Category implements CategoryTable{
 
     private long id;
     private String name;
     private List<Entry> entries;
     private List<Tag> tags;
 
-    private boolean isDirty;
-
     public Category(final DatabaseContext aDatabaseContext,final String aName,final List<Entry> aEntries,final List<Tag> aTags){
         name = aName;
         entries = aEntries;
         tags = aTags;
-        isDirty = true;
     }
 
     public Category(final DatabaseContext aDatabaseContext,final long aId,final String aName,final List<Entry> aEntries,final List<Tag> aTags){
@@ -30,7 +29,6 @@ public class Category implements CategoryTable,Persistent{
         name = aName;
         entries = aEntries;
         tags = aTags;
-        isDirty = false;
     }
 
 
@@ -41,7 +39,6 @@ public class Category implements CategoryTable,Persistent{
 
     public  void setName(final String aName) {
         name = aName;
-        setDirty();
     }
 
     public void addEntry(final Entry aEntry){
@@ -71,16 +68,10 @@ public class Category implements CategoryTable,Persistent{
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
-        setDirty();
     }
 
     public List<Tag> getTags() {
         return tags;
-    }
-
-    @Override
-    public void setDirty() {
-        isDirty = true;
     }
 
 }

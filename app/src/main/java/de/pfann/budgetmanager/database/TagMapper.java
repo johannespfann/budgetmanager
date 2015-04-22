@@ -14,7 +14,7 @@ import de.pfann.budgetmanager.model.Tag;
 /**
  * Created by johannes on 31.03.15.
  */
-public class TagMapper extends AbstractMapper {
+public class TagMapper extends AbstractDBAccessor {
 
     private DatabaseContext mDatabaseContext;
 
@@ -24,13 +24,11 @@ public class TagMapper extends AbstractMapper {
     }
 
     public Tag persistTag(final String aName, final Category aCategory) {
-        openWriteAbleDB();
         ContentValues values = new ContentValues();
         values.put(Tag.NAME, aName);
         values.put(Tag.CATEGORY_ID, aCategory.getId());
-        long tagId = mSQLiteDb.insert(Tag.TABLE_NAME, null, values);
+        long tagId = persistObject(Tag.TABLE_NAME,values);
         Tag newTag = new Tag(mDatabaseContext, tagId, aName, aCategory);
-        closeDB();
         return newTag;
     }
 
@@ -62,6 +60,13 @@ public class TagMapper extends AbstractMapper {
         }
         closeDB();
         return tags;
+    }
+
+    public void updateTag(final Tag aTag){
+        ContentValues values = new ContentValues();
+        values.put(Tag.NAME, aTag.getName());
+        values.put(Tag.CATEGORY_ID, aTag.getCategory().getId());
+        updateObject(Tag.TABLE_NAME,aTag.TAG_ID,aTag.getId(),values);
     }
 
     private Tag buildTag(Category aCategory, Cursor aCursor) {

@@ -13,7 +13,7 @@ import de.pfann.budgetmanager.model.Tag;
 /**
  * Created by johannes on 29.03.15.
  */
-public class CategoryMapper extends AbstractMapper {
+public class CategoryMapper extends AbstractDBAccessor {
 
     private static final String LOG_TAG = "CategoryMapper";
     private DatabaseContext mDatabaseContext;
@@ -21,16 +21,13 @@ public class CategoryMapper extends AbstractMapper {
     public CategoryMapper(final DatabaseContext aDatabaseContext, final BudgetDBHelper aBudgetHelper) {
         super(aBudgetHelper);
         mDatabaseContext = aDatabaseContext;
-
     }
 
     public Category persistCategory(final String aName) {
-        openWriteAbleDB();
         ContentValues values = new ContentValues();
         values.put(Category.NAME, aName);
-        long categoryId = mSQLiteDb.insert(Category.TABLE_NAME, null, values);
+        long categoryId = persistObject(Category.TABLE_NAME,values);
         Category newCategory = new Category(mDatabaseContext, categoryId, aName, new ArrayList<Entry>(), new ArrayList<Tag>());
-        closeDB();
         return newCategory;
     }
 
@@ -61,12 +58,16 @@ public class CategoryMapper extends AbstractMapper {
         return categories;
     }
 
+    public void updateCategory(final Category aCategory){
+        ContentValues values = new ContentValues();
+        values.put(Category.NAME, aCategory.getName());
+        updateObject(Category.TABLE_NAME,Category.CATEGORY_ID,aCategory.getId(),values);
+    }
+
     private Category buildCategory(Cursor aCursor) {
         long id = aCursor.getLong(aCursor.getColumnIndex(Category.CATEGORY_ID));
         String name = aCursor.getString(aCursor.getColumnIndex(Category.NAME));
         Category category = new Category(mDatabaseContext, id, name, new ArrayList<Entry>(), new ArrayList<Tag>());
         return category;
     }
-
-
 }

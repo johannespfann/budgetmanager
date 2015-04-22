@@ -19,7 +19,7 @@ import de.pfann.budgetmanager.model.Tag;
 /**
  * Created by johannes on 28.03.15.
  */
-public class EntryMapper extends AbstractMapper{
+public class EntryMapper extends AbstractDBAccessor{
 
     private static final String LOG_TAG = "EntityMapper";
 
@@ -31,17 +31,15 @@ public class EntryMapper extends AbstractMapper{
     }
 
     public Entry persistEntry(final String aName, final double aSum,final String aMemo,final  List<Tag> tags, final Category aCategory) {
-        openWriteAbleDB();
         ContentValues values = new ContentValues();
         values.put(Entry.NAME,aName);
         values.put(Entry.SUM,aSum);
         values.put(Entry.CATEGORY_ID,aCategory.getId());
         values.put(Entry.MEMO,aMemo);
         values.put(Entry.TAGS,Entry.convertTagsToString(tags));
-        long entryId = mSQLiteDb.insert(Entry.TABLE_NAME,null,values);
+        long entryId = persistObject(Entry.TABLE_NAME,values);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         Entry newEntry = new Entry(mDatabaseContext,entryId,aName,aSum,aMemo,currentDate,aCategory,tags);
-        closeDB();
         return newEntry;
     }
 
@@ -52,15 +50,13 @@ public class EntryMapper extends AbstractMapper{
     }
 
     public void updateEntry(final Entry aEntry) {
-        openWriteAbleDB();
         ContentValues values = new ContentValues();
         values.put(Entry.NAME,aEntry.getName());
         values.put(Entry.SUM,aEntry.getSum());
         values.put(Entry.CATEGORY_ID,aEntry.getCategoryId());
         values.put(Entry.MEMO,aEntry.getMemo());
         values.put(Entry.TAGS,aEntry.getTagsAsString());
-        mSQLiteDb.update(Entry.TABLE_NAME,values,Entry.ENTRY_ID + " = " + aEntry.getId(),null);
-        closeDB();
+        updateObject(Entry.TABLE_NAME,Entry.ENTRY_ID,aEntry.getId(),values);
     }
 
 

@@ -13,7 +13,7 @@ import de.pfann.budgetmanager.database.tables.EntryTable;
 /**
  * Created by johannes on 14.03.15.
  */
-public class Entry implements EntryTable, Persistent{
+public class Entry implements EntryTable{
 
     private long id;
     private String name;
@@ -23,7 +23,6 @@ public class Entry implements EntryTable, Persistent{
     private Category category;
     private List<Tag> tags;
 
-    private boolean isDirty;
     private DatabaseContext mDatabaseContext;
 
     public Entry(DatabaseContext aDatabaseContext,final String aName,final double aSum, final String aMemo,final Category aCategory){
@@ -35,7 +34,6 @@ public class Entry implements EntryTable, Persistent{
         category = aCategory;
         tags = new ArrayList<>();
         mDatabaseContext = aDatabaseContext;
-        isDirty = true;
     }
 
     public Entry(DatabaseContext aDatabaseContext,final String aName,final double aSum, final String aMemo,final Category aCategory,final List<Tag> aTags){
@@ -46,7 +44,6 @@ public class Entry implements EntryTable, Persistent{
         currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         category = aCategory;
         tags = aTags;
-        isDirty = true;
     }
 
     public Entry(DatabaseContext aDatabaseContext,final long aId,final String aName,final double aSum, final String aMemo, String aCurrentDate, final Category aCategory,final List<Tag> aTags){
@@ -57,7 +54,6 @@ public class Entry implements EntryTable, Persistent{
         currentDate = aCurrentDate;
         category = aCategory;
         tags = aTags;
-        isDirty = false;
     }
 
     public long getId() {
@@ -66,7 +62,6 @@ public class Entry implements EntryTable, Persistent{
 
     public void setName(String aName) {
         name = aName;
-        isDirty();
     }
 
     public String getName() {
@@ -75,7 +70,6 @@ public class Entry implements EntryTable, Persistent{
 
     public void setSum(double aSum) {
         this.sum = aSum;
-        isDirty();
     }
 
     public double getSum(){
@@ -84,7 +78,6 @@ public class Entry implements EntryTable, Persistent{
 
     public void setCategory(Category aCategory) {
         category = aCategory;
-        isDirty();
     }
 
     public Category getCategory(){
@@ -97,7 +90,6 @@ public class Entry implements EntryTable, Persistent{
 
     public void setMemo(String memo) {
         this.memo = memo;
-        isDirty();
     }
 
     public String getMemo() {
@@ -108,19 +100,13 @@ public class Entry implements EntryTable, Persistent{
         return tags;
     }
 
-    public boolean isDirty(){
-        return isDirty;
-    }
-
     public void addTag(final Tag aTag){
         tags.add(aTag);
-        isDirty();
     }
 
     public void deleteTag(final Tag aTag){
         if(tags.contains(aTag)){
             tags.remove(aTag);
-            isDirty();
         }
     }
 
@@ -157,10 +143,4 @@ public class Entry implements EntryTable, Persistent{
         }
         return tags;
     }
-
-    @Override
-    public void setDirty() {
-        isDirty = true;
-    }
-
 }

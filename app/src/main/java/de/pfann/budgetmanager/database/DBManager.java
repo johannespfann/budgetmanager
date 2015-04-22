@@ -1,14 +1,8 @@
 package de.pfann.budgetmanager.database;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.pfann.budgetmanager.activities.MainActivity;
-import de.pfann.budgetmanager.model.Category;
-import de.pfann.budgetmanager.model.Persistent;
 
 /**
  * Created by johannes on 28.03.15.
