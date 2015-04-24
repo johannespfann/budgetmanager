@@ -3,8 +3,6 @@ package de.pfann.budgetmanager.database;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-import de.pfann.budgetmanager.model.Entry;
-
 /**
  * Created by johannes on 22.04.15.
  */

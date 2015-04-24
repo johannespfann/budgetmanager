@@ -1,7 +1,5 @@
 package de.pfann.budgetmanager.model;
 
-import android.content.ContentValues;
-
 import java.util.ArrayList;
 import java.util.List;
 

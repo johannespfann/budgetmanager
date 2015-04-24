@@ -2,12 +2,10 @@ package de.pfann.budgetmanager.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.pfann.budgetmanager.activities.MainActivity;
 import de.pfann.budgetmanager.model.Category;
 import de.pfann.budgetmanager.model.Tag;
 

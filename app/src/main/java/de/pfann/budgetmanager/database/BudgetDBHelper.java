@@ -7,12 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import de.pfann.budgetmanager.model.Category;
 import de.pfann.budgetmanager.database.tables.CategoryTable;
-import de.pfann.budgetmanager.model.Entry;
 import de.pfann.budgetmanager.database.tables.EntryTable;
-import de.pfann.budgetmanager.model.Tag;
 import de.pfann.budgetmanager.database.tables.TagTable;
+import de.pfann.budgetmanager.model.Category;
+import de.pfann.budgetmanager.model.Entry;
+import de.pfann.budgetmanager.model.Tag;
 
 /**
  * Created by johannes on 26.03.15.

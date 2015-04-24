@@ -3,7 +3,6 @@ package de.pfann.budgetmanager.activities.addentryactivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -11,26 +10,25 @@ import java.util.List;
 
 import de.pfann.budgetmanager.activities.MainActivity;
 import de.pfann.budgetmanager.model.Category;
-import de.pfann.budgetmanager.model.Tag;
 
 /**
  * Created by johannes on 22.04.15.
  */
-public class CategorySpinnerOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+public class CategorySpinnerOnItemSelectedListener implements AdapterView.OnItemSelectedListener, CategorySpinnerObserveable {
 
     private List<Category> mCategories;
-    private ArrayAdapter mTagArrayAdapter;
     private Spinner mCategorySpinner;
+
+    List<CategorySpinnerObserver> mObservers;
 
     /**
      * @param aCategorySpinner The spinner which use this listener
      * @param aCategories      List of categories. Needs to know tags from selected category
-     * @param aTagArrayAdapter A ArrayAdapter for the spinner of the tags
      */
-    public CategorySpinnerOnItemSelectedListener(final Spinner aCategorySpinner, List<Category> aCategories, final ArrayAdapter aTagArrayAdapter) {
+    public CategorySpinnerOnItemSelectedListener(final Spinner aCategorySpinner, List<Category> aCategories) {
         mCategories = aCategories;
-        mTagArrayAdapter = aTagArrayAdapter;
         mCategorySpinner = aCategorySpinner;
+        mObservers = new ArrayList<>();
     }
 
     @Override
@@ -39,13 +37,7 @@ public class CategorySpinnerOnItemSelectedListener implements AdapterView.OnItem
         String value = mCategorySpinner.getSelectedItem().toString();
         for (Category category : mCategories) {
             if (category.getName().contains(value)) {
-                List<String> tagsAsStrings = new ArrayList<String>();
-                tagsAsStrings.add("");
-                for (Tag tag : category.getTags()) {
-                    tagsAsStrings.add(tag.getName());
-                }
-                mTagArrayAdapter.clear();
-                mTagArrayAdapter.addAll(tagsAsStrings);
+                notifyObservers(category);
             }
         }
     }
@@ -53,5 +45,22 @@ public class CategorySpinnerOnItemSelectedListener implements AdapterView.OnItem
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         Log.i(MainActivity.LOG_TAG, "nothing selected");
+    }
+
+    @Override
+    public void deleteObserver(CategorySpinnerObserver aObserver) {
+        mObservers.remove(aObserver);
+    }
+
+    @Override
+    public void addObserver(CategorySpinnerObserver aObserver) {
+        mObservers.add(aObserver);
+    }
+
+    @Override
+    public void notifyObservers(final Category aCategory) {
+        for(CategorySpinnerObserver observer : mObservers){
+            observer.update(aCategory);
+        }
     }
 }

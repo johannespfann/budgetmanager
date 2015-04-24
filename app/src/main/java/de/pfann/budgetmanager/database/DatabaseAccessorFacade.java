@@ -1,7 +1,5 @@
 package de.pfann.budgetmanager.database;
 
-import android.provider.ContactsContract;
-
 import java.util.List;
 
 import de.pfann.budgetmanager.model.Category;

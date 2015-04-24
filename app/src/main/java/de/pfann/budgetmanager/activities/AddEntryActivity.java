@@ -1,9 +1,10 @@
 package de.pfann.budgetmanager.activities;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +22,15 @@ import de.pfann.budgetmanager.R;
 import de.pfann.budgetmanager.activities.addentryactivity.CategorySpinnerOnItemSelectedListener;
 import de.pfann.budgetmanager.activities.addentryactivity.TagItemListViewOnClickListener;
 import de.pfann.budgetmanager.activities.addentryactivity.TagSpinnerOnItemSelectedListener;
+import de.pfann.budgetmanager.activities.addentryactivity.TagsComponent;
 import de.pfann.budgetmanager.database.DBManager;
 import de.pfann.budgetmanager.database.DatabaseAccessorFacade;
 import de.pfann.budgetmanager.model.Category;
 import de.pfann.budgetmanager.model.Tag;
 
-public class AddEntryActivity extends ActionBarActivity {
+
+
+public class AddEntryActivity extends ActionBarActivity{
 
     private String mName;
     private Category mCategory;
@@ -34,13 +38,16 @@ public class AddEntryActivity extends ActionBarActivity {
     private String mMemo;
     private List<Tag> mTags;
 
-
-
     private List<Category> mCategories;
-    private Spinner mSpinnerCategory;
-    private Spinner mSpinnerTags;
+    private Spinner mCategorySpinner;
+    private Spinner mTagSpinner;
 
     private LinearLayout mTagListViewLayout;
+    private TagsComponent mTagsComponent;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +58,21 @@ public class AddEntryActivity extends ActionBarActivity {
         final DatabaseAccessorFacade dbAccessor =  dbManager.getDatabaseFacade();
         mCategories = dbAccessor.getAllCategories();
 
+        // Erstelle Spinner
+        mCategorySpinner = (Spinner) findViewById(R.id.addentry_spinner_category);
+        mTagSpinner = (Spinner) findViewById(R.id.addentry_spinner_tags);
+
+
+        final ArrayAdapter tagArrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
+        tagArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mTagSpinner.setAdapter(tagArrayAdapter);
+
+        // SetUp TagListView
         mTagListViewLayout = (LinearLayout) findViewById(R.id.addentry_linearlayout_taglist);
+
+
+        mTagsComponent = new TagsComponent(getApplicationContext(),mTagListViewLayout, mTagSpinner);
+
 
         // Erstelle ActionBar
         ActionBar actionBar = getSupportActionBar();
@@ -59,46 +80,39 @@ public class AddEntryActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        // Erstelle Spinner
-        mSpinnerCategory = (Spinner) findViewById(R.id.addentry_spinner_category);
-        mSpinnerTags = (Spinner) findViewById(R.id.addentry_spinner_tags);
+
 
         List<String> categoriesAsString = new ArrayList<>();
         for(Category category : mCategories){
             categoriesAsString.add(category.getName());
         }
 
-        final ArrayAdapter arrayTagAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
-        arrayTagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mSpinnerTags.setAdapter(arrayTagAdapter);
-        final ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,categoriesAsString);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinnerCategory.setAdapter(arrayAdapter);
-        mSpinnerCategory.setOnItemSelectedListener(new CategorySpinnerOnItemSelectedListener(mSpinnerCategory,mCategories,arrayTagAdapter));
-        mSpinnerTags.setOnItemSelectedListener(new TagSpinnerOnItemSelectedListener(mSpinnerTags));
+        final ArrayAdapter categoryArrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,categoriesAsString);
+        categoryArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCategorySpinner.setAdapter(categoryArrayAdapter);
 
 
-
-
-        LinearLayout linearLayoutTagListItem = new LinearLayout(this);
-        linearLayoutTagListItem.setOrientation(LinearLayout.VERTICAL);
-
-
+        CategorySpinnerOnItemSelectedListener categorySpinnerListener = new CategorySpinnerOnItemSelectedListener(mCategorySpinner,mCategories);
+        categorySpinnerListener.addObserver(mTagsComponent);
+        mCategorySpinner.setOnItemSelectedListener(categorySpinnerListener);
+        mTagSpinner.setOnItemSelectedListener(new TagSpinnerOnItemSelectedListener(mTagSpinner));
 
     }
 
-    public LinearLayout createNewTagListItem(final Tag aTag){
-        final LinearLayout linearLayout = (LinearLayout)getLayoutInflater().inflate(R.layout.activity_add_entry_tag_listview_item,null);
-        linearLayout.setId(new Random().nextInt());
-        TextView middleTextView = (TextView) linearLayout.getChildAt(1);
-        middleTextView.setText(aTag.getName());
-        ImageView rightImageView = (ImageView) linearLayout.getChildAt(2);
+    public LinearLayout createLinearLayout(){
+        LayoutInflater inflater = LayoutInflater.from(this);
+        LinearLayout aLinearLayout = (LinearLayout)inflater.inflate(R.layout.activity_add_entry_tag_listview_item,null);
+        aLinearLayout.setId(new Random().nextInt());
+        TextView middleTextView = (TextView) aLinearLayout.getChildAt(1);
+        middleTextView.setText("asdfads");
+        ImageView rightImageView = (ImageView) aLinearLayout.getChildAt(2);
         rightImageView.setClickable(true);
-        rightImageView.setOnClickListener(new TagItemListViewOnClickListener(linearLayout));
-
-        return linearLayout;
+        rightImageView.setOnClickListener(new TagItemListViewOnClickListener(aLinearLayout));
+        return aLinearLayout;
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,16 +134,12 @@ public class AddEntryActivity extends ActionBarActivity {
                 DatabaseAccessorFacade accessorFacade = DBManager.getInstance().getDatabaseFacade();
                 accessorFacade.persistEntry(mName, mSum, mMemo, mTags, mCategory);
 
-                cleanUserInterface();
             }
             Log.i(MainActivity.LOG_TAG,"clicked add new entry");
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void cleanUserInterface(){
-
-    }
 
     public boolean allInputsCorrect(){
         if(mName.isEmpty()){
@@ -148,26 +158,13 @@ public class AddEntryActivity extends ActionBarActivity {
     }
 
     public void addNewTag(final View aView){
-        Log.i(MainActivity.LOG_TAG,"clicked addNewTag");
-        Log.i(MainActivity.LOG_TAG,"Selected Value in Spinner is: " + mSpinnerTags.getSelectedItem().toString().isEmpty());
-        if(!mSpinnerTags.getSelectedItem().toString().isEmpty()) {
-            for(Category category : mCategories){
-                if(category.getName().contains(mSpinnerCategory.getSelectedItem().toString())){
-                    Log.i(MainActivity.LOG_TAG,"Selected Category: " + mSpinnerCategory.getSelectedItem().toString() + " found!");
-                    mCategory = category;
-                    break;
-                }
-            }
-
-            for(Tag tag : mCategory.getTags()){
-                if(tag.getName().contains(mSpinnerTags.getSelectedItem().toString())){
-                    Log.i(MainActivity.LOG_TAG,"Selected Tag: " + mSpinnerTags.getSelectedItem().toString() + " found!");
-                    mTagListViewLayout.addView(createNewTagListItem(tag));
-                }
-            }
-
-            Log.i(MainActivity.LOG_TAG, mSpinnerTags.getSelectedItem().toString());
+        if(mTagSpinner.getSelectedItem().toString().isEmpty()) {
+            return;
         }
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        LinearLayout linearLayout = (LinearLayout)inflater.inflate(R.layout.activity_add_entry_tag_listview_item,null);
+        mTagsComponent.addNewTagListViewItem(linearLayout);
     }
 
     public void change(View aView){
@@ -181,6 +178,4 @@ public class AddEntryActivity extends ActionBarActivity {
             textview.setText("-");
         }
     }
-
-
 }
