@@ -2,12 +2,15 @@ TODO
 * Styles aufbaun 
 	* Styles cleanen
 * History erstellen
-* Eintrag persistieren
+* Eintragseite
 	* Kategorie zuerst laden mit tags
 	* was passiert mit Werten wenn:
 		* Zurück zu Home/Abbruch/Acitivity Backround
 		* persistieren - gibt es werte die wichtig beim nächsten mal sind? (Kategorie, tags .. performance beim Laden)
+	* Eintrag persistieren
+	* Mehrfach Tags aufwählen (solang vorhanden)
 * SharedPreferences - Struktur
+	
 
 
 DONE 

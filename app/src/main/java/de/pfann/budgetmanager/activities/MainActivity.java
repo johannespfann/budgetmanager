@@ -24,7 +24,7 @@ public class MainActivity extends ActionBarActivity
 
     public static final String LOG_TAG = "budgetmanager";
 
-     private NavigationDrawerFragment mNavigationDrawerFragment;
+    private NavigationDrawerFragment mNavigationDrawerFragment;
 
     private CharSequence mTitle;
 

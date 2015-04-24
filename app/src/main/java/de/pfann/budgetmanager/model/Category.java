@@ -31,7 +31,6 @@ public class Category implements CategoryTable{
         tags = aTags;
     }
 
-
     public long getId() {
         return id;
     }
@@ -42,7 +41,6 @@ public class Category implements CategoryTable{
     }
 
     public void addEntry(final Entry aEntry){
-        // Hier muss isDirty nicht gesetzt werden. Keine Änderung in der DB!
         if(entries == null){
             entries = new ArrayList<>();
         }
@@ -50,7 +48,6 @@ public class Category implements CategoryTable{
     }
 
     public void addTag(final Tag aTag){
-        // Hier muss isDirty nicht gesetzt werden. Keine Änderung in der DB!
         if(tags == null){
             tags = new ArrayList<>();
         }

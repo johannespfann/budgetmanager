@@ -35,7 +35,7 @@
                 android:layout_weight=".15" />
 
         </LinearLayout>
-        
+
         <!-- ++++++++++++++++++++[Category]+++++++++++++++++++++++++++++-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight=".65"/>
+                android:layout_weight=".65" />
 
             <ImageView
                 android:layout_width="0dp"
@@ -74,8 +74,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight=".20"
-                 />
+                android:layout_weight=".20" />
 
             <TextView
                 android:id="@+id/plusminus"
@@ -83,11 +82,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight=".10"
-                android:onClick="change"
                 android:clickable="true"
+                android:onClick="change"
+                android:text="@string/addentryview_textview_sign"
                 android:textSize="12dp"
-                android:textStyle="bold"
-                android:text="@string/addentryview_textview_sign" />
+                android:textStyle="bold" />
 
 
             <EditText
@@ -134,7 +133,21 @@
 
         </LinearLayout>
 
+        <!-- ++++++++++++++++++++[Tags-List]+++++++++++++++++++++++++++++-->
+
+        <LinearLayout
+            android:id="@+id/addentry_linearlayout_taglist"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+
+        </LinearLayout>
         <!-- ++++++++++++++++++++[Tags]+++++++++++++++++++++++++++++-->
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -152,7 +165,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight=".65"/>
+                android:layout_weight=".65" />
 
             <ImageView
                 android:layout_width="0dp"
@@ -161,7 +174,26 @@
                 android:layout_weight=".15" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".85"/>
 
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".15"
+                android:src="@drawable/ic_action_new_label"
+                android:clickable="true"
+                android:onClick="addNewTag"/>
+
+        </LinearLayout>
     </LinearLayout>
+
+
 </ScrollView>

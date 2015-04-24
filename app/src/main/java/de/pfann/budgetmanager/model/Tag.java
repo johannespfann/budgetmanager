@@ -8,16 +8,9 @@ import de.pfann.budgetmanager.database.tables.TagTable;
  */
 public class Tag implements TagTable{
 
-    public static final String TABLE_NAME = "Tag";
-    public static final String TAG_ID = "tag_id";
-    public static final String NAME = "tag_name";
-    public static final String CATEGORY_ID = "tag_category_id";
-
-
     private long id;
     private Category category;
     private String name;
-
 
     public Tag(DatabaseContext aDatabaseContext,final String aName,final Category aCategory){
         id = 0;
