@@ -29,17 +29,14 @@ public class MainActivity extends ActionBarActivity
     private CharSequence mTitle;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(LOG_TAG, "Start App!");
         new DBInput().invoke(getApplicationContext());
         setContentView(R.layout.activity_main);
-        setupNavigationDrawer(R.id.navigation_drawer,R.id.drawer_layout);
+        setupNavigationDrawer(R.id.navigation_drawer, R.id.drawer_layout);
     }
-
-
 
     private void setupNavigationDrawer(final int aNavigationDrawerId, final int aNavigationFrawerLayoutId) {
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -52,16 +49,11 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        Log.i(LOG_TAG,"onNavigationDrawerItemSelected : " + position);
-        if(position == 2){
-            Intent intent = new Intent(this,AddEntryActivity.class);
-            startActivity(intent);
-        }else {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                    .commit();
-        }
+        Log.i(LOG_TAG, "onNavigationDrawerItemSelected : " + position);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .commit();
     }
 
 
@@ -88,7 +80,7 @@ public class MainActivity extends ActionBarActivity
         if (id == R.id.actionbar_settings) {
             return true;
         }
-        if(id == R.id.actionbar_getAddEntryView){
+        if (id == R.id.actionbar_getAddEntryView) {
             Intent intent = new Intent(this, AddEntryActivity.class);
             startActivity(intent);
         }
