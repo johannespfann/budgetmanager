@@ -6,9 +6,7 @@ import java.util.List;
 import de.pfann.budgetmanager.database.DatabaseContext;
 import de.pfann.budgetmanager.database.tables.CategoryTable;
 
-/**
- * Created by johannes on 14.03.15.
- */
+
 public class Category implements CategoryTable{
 
     private long id;

@@ -3,9 +3,6 @@ package de.pfann.budgetmanager.model;
 import de.pfann.budgetmanager.database.DatabaseContext;
 import de.pfann.budgetmanager.database.tables.TagTable;
 
-/**
- * Created by johannes on 14.03.15.
- */
 public class Tag implements TagTable{
 
     private long id;

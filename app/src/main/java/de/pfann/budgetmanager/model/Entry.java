@@ -10,9 +10,6 @@ import java.util.List;
 import de.pfann.budgetmanager.database.DatabaseContext;
 import de.pfann.budgetmanager.database.tables.EntryTable;
 
-/**
- * Created by johannes on 14.03.15.
- */
 public class Entry implements EntryTable{
 
     private long id;
