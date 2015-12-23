@@ -1,7 +1,6 @@
 package de.pfann.budgetmanager.activities;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,13 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.pfann.budgetmanager.R;
-import de.pfann.budgetmanager.database.DBInput;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    public static final String LOG_TAG = "budgetmanager";
+    public static final String TAG = "budgetmanager";
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -32,8 +30,7 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(LOG_TAG, "Start App!");
-        new DBInput().invoke(getApplicationContext());
+        Log.i(TAG, "Start App!");
         setContentView(R.layout.activity_main);
         setupNavigationDrawer(R.id.navigation_drawer, R.id.drawer_layout);
     }
@@ -49,7 +46,7 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        Log.i(LOG_TAG, "onNavigationDrawerItemSelected : " + position);
+        Log.i(TAG, "onNavigationDrawerItemSelected : " + position);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
@@ -80,10 +77,7 @@ public class MainActivity extends ActionBarActivity
         if (id == R.id.actionbar_settings) {
             return true;
         }
-        if (id == R.id.actionbar_getAddEntryView) {
-            Intent intent = new Intent(this, AddEntryActivity.class);
-            startActivity(intent);
-        }
+
         return super.onOptionsItemSelected(item);
     }
 

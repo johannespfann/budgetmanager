@@ -1,48 +1,43 @@
 package de.pfann.budgetmanager.model;
 
-import de.pfann.budgetmanager.database.DatabaseContext;
-import de.pfann.budgetmanager.database.tables.TagTable;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-public class Tag implements TagTable{
+import java.io.Serializable;
 
-    private long id;
-    private Category category;
-    private String name;
+@DatabaseTable(tableName = "Tag")
+public class Tag implements Serializable {
 
-    public Tag(DatabaseContext aDatabaseContext,final String aName,final Category aCategory){
-        id = 0;
-        name = aName;
-        category = aCategory;
-    }
+    @DatabaseField(generatedId = true)
+    private long mId;
 
-    public Tag(DatabaseContext aDatabaseContext,final long aId,final String aName,final Category aCategory){
-        id = aId;
-        name = aName;
-        category = aCategory;
-    }
+    @DatabaseField(columnName = "category", foreign = true)
+    private Category mCategory;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    @DatabaseField(columnName = "name")
+    private String mName;
 
     public long getId() {
-        return id;
+        return mId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setId(long aId) {
+        mId = aId;
     }
 
     public Category getCategory() {
-        return category;
+        return mCategory;
     }
 
+    public void setCategory(Category aCategory) {
+        mCategory = aCategory;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String aName) {
+        mName = aName;
+    }
 }

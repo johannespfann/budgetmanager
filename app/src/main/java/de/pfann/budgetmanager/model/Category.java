@@ -1,70 +1,56 @@
 package de.pfann.budgetmanager.model;
 
-import java.util.ArrayList;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+
+import java.io.Serializable;
 import java.util.List;
 
-import de.pfann.budgetmanager.database.DatabaseContext;
-import de.pfann.budgetmanager.database.tables.CategoryTable;
+@DatabaseTable(tableName = "Category")
+public class Category implements Serializable{
 
+    @DatabaseField(generatedId = true)
+    private long mID;
 
-public class Category implements CategoryTable{
+    @DatabaseField(columnName = "name")
+    private String mName;
 
-    private long id;
-    private String name;
-    private List<Entry> entries;
-    private List<Tag> tags;
+    @ForeignCollectionField
+    private List<Entry> mEntities;
 
-    public Category(final DatabaseContext aDatabaseContext,final String aName,final List<Entry> aEntries,final List<Tag> aTags){
-        name = aName;
-        entries = aEntries;
-        tags = aTags;
+    @ForeignCollectionField
+    private List<Tag> mTags;
+
+    public long getID() {
+        return mID;
     }
 
-    public Category(final DatabaseContext aDatabaseContext,final long aId,final String aName,final List<Entry> aEntries,final List<Tag> aTags){
-        id = aId;
-        name = aName;
-        entries = aEntries;
-        tags = aTags;
+    public void setID(long mID) {
+        this.mID = mID;
     }
 
-    public long getId() {
-        return id;
+    public String getName() {
+        return mName;
     }
 
-
-    public  void setName(final String aName) {
-        name = aName;
+    public void setName(String mName) {
+        this.mName = mName;
     }
 
-    public void addEntry(final Entry aEntry){
-        if(entries == null){
-            entries = new ArrayList<>();
-        }
-        entries.add(aEntry);
+    public List<Entry> getEntities() {
+        return mEntities;
     }
 
-    public void addTag(final Tag aTag){
-        if(tags == null){
-            tags = new ArrayList<>();
-        }
-        tags.add(aTag);
-    }
-
-    public List<Entry> getAllEntries(){
-        return entries;
-
-    }
-
-    public  String getName() {
-        return name;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
+    public void setEntities(List<Entry> mEntities) {
+        this.mEntities = mEntities;
     }
 
     public List<Tag> getTags() {
-        return tags;
+        return mTags;
     }
 
+    public void setTags(List<Tag> mTags) {
+        this.mTags = mTags;
+    }
 }

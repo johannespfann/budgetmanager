@@ -1,0 +1,82 @@
+#
+# generated on 2015/12/23 10:09:34
+#
+# --table-start--
+dataClass=de.pfann.budgetmanager.model.Tag
+tableName=Tag
+# --table-fields-start--
+# --field-start--
+fieldName=mId
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=mCategory
+columnName=category
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=mName
+columnName=name
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=de.pfann.budgetmanager.model.Category
+tableName=Category
+# --table-fields-start--
+# --field-start--
+fieldName=mID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=mName
+columnName=name
+# --field-end--
+# --field-start--
+fieldName=mEntities
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=mTags
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=de.pfann.budgetmanager.model.Entry
+tableName=Entry
+# --table-fields-start--
+# --field-start--
+fieldName=mId
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=mName
+columnName=name
+# --field-end--
+# --field-start--
+fieldName=mSum
+columnName=sum
+# --field-end--
+# --field-start--
+fieldName=mMemo
+columnName=memo
+# --field-end--
+# --field-start--
+fieldName=mCurrentDate
+columnName=current_date
+# --field-end--
+# --field-start--
+fieldName=mCategory
+columnName=category
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=mTags
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

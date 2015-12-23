@@ -20,12 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.List;
-
 import de.pfann.budgetmanager.R;
-import de.pfann.budgetmanager.database.DBManager;
-import de.pfann.budgetmanager.database.DatabaseAccessorFacade;
-import de.pfann.budgetmanager.model.Category;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -36,7 +31,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
-    private static String LOG_TAG = MainActivity.LOG_TAG;
+    private static String LOG_TAG = MainActivity.TAG;
     private NavigationDrawerCallbacks mCallbacks;
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -49,7 +44,7 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mUserLearnedDrawer;
 
     public NavigationDrawerFragment() {
-        LOG_TAG = MainActivity.LOG_TAG + " " + "navigationdrawerfragment";
+        LOG_TAG = MainActivity.TAG + " " + "navigationdrawerfragment";
     }
 
     @Override
@@ -77,15 +72,10 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        DBManager dbManager = DBManager.getInstance();
-        DatabaseAccessorFacade dbAccessor = dbManager.getDatabaseFacade();
-        List<Category> categories = dbAccessor.getAllCategories();
 
-        int oversize = 4;
-        int sizeOffList = categories.size() + oversize + 1;
 
-        String[] listViewStrings = new String[sizeOffList];
-        int[] listViewIcons = new int[sizeOffList];
+        String[] listViewStrings = new String[4];
+        int[] listViewIcons = new int[4];
 
         listViewStrings[0] = "Profil";
         listViewIcons[0] = R.drawable.ic_action_person;
@@ -99,15 +89,6 @@ public class NavigationDrawerFragment extends Fragment {
         listViewStrings[3] = "Allgemeine Statistik";
         listViewIcons[3] = R.drawable.ic_action_line_chart;
 
-        int lastone = 0;
-        for(int i = 0; i<categories.size();i++){
-            listViewStrings[i + oversize] = categories.get(i).getName();
-            listViewIcons[i + oversize] = R.drawable.ic_action_folder_tabs;
-            lastone = i + oversize;
-        }
-
-        listViewStrings[lastone + 1] = "Neue Kategorie";
-        listViewIcons[lastone + 1] = R.drawable.ic_action_add;
 
 
         mDrawerListView = (ListView) inflater.inflate(
