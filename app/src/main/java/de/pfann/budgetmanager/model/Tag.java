@@ -17,6 +17,11 @@ public class Tag implements Serializable {
     @DatabaseField(columnName = "name")
     private String mName;
 
+    public Tag(final String aName, final Category aCategory){
+        mName = aName;
+        mCategory = aCategory;
+    }
+
     public long getId() {
         return mId;
     }

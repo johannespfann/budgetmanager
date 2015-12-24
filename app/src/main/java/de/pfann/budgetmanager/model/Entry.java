@@ -5,9 +5,9 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
-
-
 
 @DatabaseTable(tableName = "Entry")
 public class Entry implements Serializable {
@@ -25,13 +25,28 @@ public class Entry implements Serializable {
     private String mMemo;
 
     @DatabaseField(columnName = "current_date")
-    private String mCurrentDate;
+    private Date mCurrentDate;
 
     @DatabaseField(columnName = "category", foreign = true)
     private Category mCategory;
 
     @ForeignCollectionField
     private List<Tag> mTags;
+
+    public Entry(final String aName, final Date aCurrentDate,final Category aCategory){
+        mName = aName;
+        mCurrentDate = aCurrentDate;
+        mCategory = aCategory;
+        mTags = new LinkedList<>();
+    }
+
+
+    public Entry(final String aName, final Date aCurrentDate,final Category aCategory, final List<Tag> aTags){
+        mName = aName;
+        mCurrentDate = aCurrentDate;
+        mCategory = aCategory;
+        mTags = aTags;
+    }
 
 
     public long getId() {
@@ -66,11 +81,11 @@ public class Entry implements Serializable {
         mMemo = aMemo;
     }
 
-    public String getCurrentDate() {
+    public Date getCurrentDate() {
         return mCurrentDate;
     }
 
-    public void setCurrentDate(String aCurrentDate) {
+    public void setCurrentDate(Date aCurrentDate) {
         mCurrentDate = aCurrentDate;
     }
 

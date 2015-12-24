@@ -5,6 +5,7 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 @DatabaseTable(tableName = "Category")
@@ -21,6 +22,12 @@ public class Category implements Serializable{
 
     @ForeignCollectionField
     private List<Tag> mTags;
+
+    public Category(final String aName){
+        mName = aName;
+        mEntities = new LinkedList<>();
+        mTags = new LinkedList<>();
+    }
 
     public long getID() {
         return mID;

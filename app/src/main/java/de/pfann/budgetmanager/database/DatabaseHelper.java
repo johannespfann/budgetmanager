@@ -24,10 +24,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private Dao<Tag, Long> mTagDao;
     private Dao<Category, Long> mCategoryDao;
-    private Dao<Entry, Long> mEntry;
+    private Dao<Entry, Long> mEntryDao;
 
 
-    DatabaseHelper(final Context aContext){
+
+    public DatabaseHelper(final Context aContext){
         super(aContext, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
     }
 
@@ -39,8 +40,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return mCategoryDao;
     }
 
-    public Dao<Entry, Long> getEntry() {
-        return mEntry;
+    public Dao<Entry, Long> getEntryDao() {
+        return mEntryDao;
     }
 
     @Override

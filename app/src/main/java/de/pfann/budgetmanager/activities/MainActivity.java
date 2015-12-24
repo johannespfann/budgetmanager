@@ -14,7 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import de.pfann.budgetmanager.R;
+import de.pfann.budgetmanager.database.CategoryDAO;
+import de.pfann.budgetmanager.model.Category;
 
 
 public class MainActivity extends ActionBarActivity
@@ -32,6 +37,20 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         Log.i(TAG, "Start App!");
         setContentView(R.layout.activity_main);
+        try {
+            CategoryDAO categoryDAO = new CategoryDAO(getApplicationContext());
+            categoryDAO.addCategory(new Category("Hallo"));
+
+            List<Category> categories = categoryDAO.getCategories();
+            Log.i(TAG,"Size: " + categories.size());
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
         setupNavigationDrawer(R.id.navigation_drawer, R.id.drawer_layout);
     }
 
