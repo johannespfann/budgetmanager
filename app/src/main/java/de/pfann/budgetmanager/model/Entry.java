@@ -1,37 +1,49 @@
 package de.pfann.budgetmanager.model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 
 @DatabaseTable(tableName = "Entry")
 public class Entry implements Serializable {
 
-    @DatabaseField(generatedId = true)
+    public static final String ID_TABLE_NAME = "id";
+    public static final String NAME_TABLE_NAME = "name";
+    public static final String SUM_TABLE_NAME = "sum";
+    public static final String MEMO_TABLE_NAME = "memo";
+    public static final String DATE_TABLE_NAME = "current_date";
+    public static final String CATEGORY_TABLE_NAME = "category_id";
+
+    @DatabaseField(generatedId = true, columnName = ID_TABLE_NAME)
     private long mId;
 
-    @DatabaseField(columnName = "name")
+    @DatabaseField(columnName = NAME_TABLE_NAME)
     private String mName;
 
-    @DatabaseField(columnName = "sum")
+    @DatabaseField(columnName = SUM_TABLE_NAME)
     private double mSum;
 
-    @DatabaseField(columnName = "memo")
+    @DatabaseField(columnName = MEMO_TABLE_NAME)
     private String mMemo;
 
-    @DatabaseField(columnName = "current_date")
+    @DatabaseField(columnName = DATE_TABLE_NAME)
     private Date mCurrentDate;
 
-    @DatabaseField(columnName = "category", foreign = true)
+    @DatabaseField(columnName = CATEGORY_TABLE_NAME, foreign = true)
     private Category mCategory;
 
     @ForeignCollectionField
-    private List<Tag> mTags;
+    private Collection<Tag> mTags;
+
+    public Entry(){
+        // Default
+    }
 
     public Entry(final String aName, final Date aCurrentDate,final Category aCategory){
         mName = aName;
@@ -41,7 +53,7 @@ public class Entry implements Serializable {
     }
 
 
-    public Entry(final String aName, final Date aCurrentDate,final Category aCategory, final List<Tag> aTags){
+    public Entry(final String aName, final Date aCurrentDate,final Category aCategory, final Collection<Tag> aTags){
         mName = aName;
         mCurrentDate = aCurrentDate;
         mCategory = aCategory;
@@ -97,11 +109,11 @@ public class Entry implements Serializable {
         mCategory = aCategory;
     }
 
-    public List<Tag> getTags() {
+    public Collection<Tag> getTags() {
         return mTags;
     }
 
-    public void setTags(List<Tag> aTags) {
+    public void setTags(Collection<Tag> aTags) {
         mTags = aTags;
     }
 }

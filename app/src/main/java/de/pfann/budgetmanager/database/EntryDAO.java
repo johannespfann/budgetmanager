@@ -1,23 +1,18 @@
 package de.pfann.budgetmanager.database;
 
 
-import android.content.Context;
+import java.sql.SQLException;
+import java.util.List;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
-
+import de.pfann.budgetmanager.model.Category;
 import de.pfann.budgetmanager.model.Entry;
 
-public class EntryDAO {
+public interface EntryDAO {
 
-    private Dao<Entry, Long> mEntryDao;
-
-    public EntryDAO(final Context aContext){
-        DatabaseHelper databaseHelper = OpenHelperManager.getHelper(aContext, DatabaseHelper.class);
-        mEntryDao = databaseHelper.getEntryDao();
-    }
-
-
-
+    void addEntry(final Entry aEntry, final Category aCategory) throws SQLException;
+    void deleteEntry(final Entry aEntry) throws SQLException;
+    void updateEntry(final Entry aEntry) throws SQLException;
+    List<Entry> getEntries() throws SQLException;
+    List<Entry> getEntriesByCategory(final Category aCategory) throws SQLException;
 
 }

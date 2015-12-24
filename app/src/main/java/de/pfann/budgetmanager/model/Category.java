@@ -5,23 +5,33 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
+
 
 @DatabaseTable(tableName = "Category")
 public class Category implements Serializable{
 
-    @DatabaseField(generatedId = true)
+    public static final String ID_TABLE_NAME = "id";
+    public static final String NAME_TABLE_NAME = "name";
+
+
+    @DatabaseField(generatedId = true, columnName = ID_TABLE_NAME)
     private long mID;
 
-    @DatabaseField(columnName = "name")
+    @DatabaseField(columnName = NAME_TABLE_NAME)
     private String mName;
 
     @ForeignCollectionField
-    private List<Entry> mEntities;
+    private Collection<Entry> mEntities;
 
     @ForeignCollectionField
-    private List<Tag> mTags;
+    private Collection<Tag> mTags;
+
+
+    public Category(){
+        // Default
+    }
 
     public Category(final String aName){
         mName = aName;
@@ -45,19 +55,19 @@ public class Category implements Serializable{
         this.mName = mName;
     }
 
-    public List<Entry> getEntities() {
+    public Collection<Entry> getEntities() {
         return mEntities;
     }
 
-    public void setEntities(List<Entry> mEntities) {
+    public void setEntities(Collection<Entry> mEntities) {
         this.mEntities = mEntities;
     }
 
-    public List<Tag> getTags() {
+    public Collection<Tag> getTags() {
         return mTags;
     }
 
-    public void setTags(List<Tag> mTags) {
+    public void setTags(Collection<Tag> mTags) {
         this.mTags = mTags;
     }
 }

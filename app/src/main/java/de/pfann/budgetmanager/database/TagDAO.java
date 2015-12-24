@@ -1,5 +1,16 @@
 package de.pfann.budgetmanager.database;
 
 
-public class TagDAO {
+import java.sql.SQLException;
+
+import de.pfann.budgetmanager.model.Tag;
+
+public interface TagDAO {
+
+    void addTag(final Tag aTag) throws SQLException;
+    void deleteTAg(final Tag aTag) throws SQLException;
+    void updateTag(final Tag aTag) throws SQLException;
+
+
+
 }

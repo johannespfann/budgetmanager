@@ -1,0 +1,8 @@
+creating table 'Entry'
+executed create table statement changed 1 rows: CREATE TABLE `Entry` (`id` INTEGER PRIMARY KEY AUTOINCREMENT , `name` VARCHAR , `sum` DOUBLE PRECISION , `memo` VARCHAR , `current_date` VARCHAR , `category_id` BIGINT )
+
+creating table 'Category'
+executed create table statement changed 1 rows: CREATE TABLE `Category` (`id` INTEGER PRIMARY KEY AUTOINCREMENT , `name` VARCHAR )
+
+creating table 'Tag'
+executed create table statement changed 1 rows: CREATE TABLE `Tag` (`id` INTEGER PRIMARY KEY AUTOINCREMENT , `name` VARCHAR , `category_id` BIGINT , `entry_id` BIGINT )

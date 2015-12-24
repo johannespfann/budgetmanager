@@ -27,26 +27,36 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Entry, Long> mEntryDao;
 
 
-
     public DatabaseHelper(final Context aContext){
         super(aContext, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
     }
 
-    public Dao<Tag, Long> getTagDao() {
+    public Dao<Tag, Long> getTagDao() throws SQLException{
+        if(mTagDao == null){
+            mTagDao = getDao(Tag.class);
+        }
         return mTagDao;
     }
 
-    public Dao<Category, Long> getCategoryDao() {
+    public Dao<Category, Long> getCategoryDao() throws SQLException{
+        if(mCategoryDao == null){
+            mCategoryDao = getDao(Category.class);
+        }
         return mCategoryDao;
     }
 
-    public Dao<Entry, Long> getEntryDao() {
+    public Dao<Entry, Long> getEntryDao() throws SQLException{
+        if(mEntryDao == null){
+            mEntryDao = getDao(Entry.class);
+        }
         return mEntryDao;
     }
 
     @Override
     public void onCreate(SQLiteDatabase aDatabase, ConnectionSource aConnectionSource) {
         try {
+            TableUtils.createTable(aConnectionSource, Entry.class);
+            TableUtils.createTable(aConnectionSource, Category.class);
             TableUtils.createTable(aConnectionSource, Tag.class);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
