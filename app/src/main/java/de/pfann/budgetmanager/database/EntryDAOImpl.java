@@ -26,8 +26,7 @@ public class EntryDAOImpl implements EntryDAO{
     }
 
     @Override
-    public void addEntry(Entry aEntry, Category aCategory) throws SQLException {
-        aEntry.setCategory(aCategory);
+    public void addEntry(Entry aEntry) throws SQLException {
         mEntryDao.create(aEntry);
     }
 

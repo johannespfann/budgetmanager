@@ -15,11 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import de.pfann.budgetmanager.R;
 import de.pfann.budgetmanager.database.CategoryDAOImpl;
+import de.pfann.budgetmanager.database.EntryDAO;
+import de.pfann.budgetmanager.database.EntryDAOImpl;
 import de.pfann.budgetmanager.model.Category;
+import de.pfann.budgetmanager.model.Entry;
 
 
 public class MainActivity extends ActionBarActivity
@@ -39,7 +44,25 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
         try {
             CategoryDAOImpl categoryDAO = new CategoryDAOImpl(getApplicationContext());
-            categoryDAO.persistCategory(new Category("Hallo"));
+            Category newCategory = new Category("Arbeit");
+            categoryDAO.persistCategory(newCategory);
+
+            Date currentDate = new Date();
+
+            Log.i(TAG, currentDate.toString());
+            EntryDAO entryDAO = new EntryDAOImpl(getApplicationContext());
+            entryDAO.addEntry(new Entry("Kosten",new Date(),newCategory));
+
+
+            List<Entry> entries = entryDAO.getEntries();
+
+
+            for(Entry entry : entries){
+                Log.i(TAG,"Entry:");
+                Log.i(TAG," -Name: " + entry.getName());
+                Log.i(TAG," -Date: " + entry.getCurrentDate().toString());
+            }
+
 
             List<Category> categories = categoryDAO.getCategories();
             Log.i(TAG,"Size: " + categories.size());

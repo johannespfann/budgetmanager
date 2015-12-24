@@ -9,7 +9,7 @@ import de.pfann.budgetmanager.model.Entry;
 
 public interface EntryDAO {
 
-    void addEntry(final Entry aEntry, final Category aCategory) throws SQLException;
+    void addEntry(final Entry aEntry) throws SQLException;
     void deleteEntry(final Entry aEntry) throws SQLException;
     void updateEntry(final Entry aEntry) throws SQLException;
     List<Entry> getEntries() throws SQLException;
