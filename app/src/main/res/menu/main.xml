@@ -1,17 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="de.pfann.budgetmanager.activities.MainActivity">
-
+    tools:context=".MainActivity">
     <item
-        android:id="@+id/actionbar_settings"
-        android:title="@string/actionbar_text_settings"
+        android:id="@+id/action_example"
+        android:icon="@drawable/abc_ic_menu_cut_mtrl_alpha"
+        android:title="@string/action_example"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/abc_btn_rating_star_on_mtrl_alpha"
         android:orderInCategory="100"
+        android:title="@string/action_settings"
         app:showAsAction="never" />
-
-    <item android:id="@+id/actionbar_getAddEntryView"
-        android:title="@string/actionbar_text_addentry"
-        android:icon="@drawable/ic_action_new_event_w"
-        app:showAsAction="ifRoom">
-    </item>
 </menu>

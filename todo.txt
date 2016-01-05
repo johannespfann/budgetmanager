@@ -1,11 +1,13 @@
 TODO
-* ormLite einbinden und Testen
-* ormLite Entities einbaun
+
 * Projektdokumente überarbeiten
 * Butterknife/Dagger einbinden/testen
 * EventBus einbinden/testen
 * Grundstruktur aufbaun mit Drawer
 * Package-Struktur einrichten
 
+
 DONE 
 
+* ormLite einbinden und Testen
+* ormLite Entities einbaun

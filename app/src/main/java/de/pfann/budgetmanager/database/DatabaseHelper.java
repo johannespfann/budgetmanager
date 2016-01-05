@@ -21,11 +21,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "budget.db";
     private static final int DATABASE_VERSION = 1;
 
-
     private Dao<Tag, Long> mTagDao;
     private Dao<Category, Long> mCategoryDao;
     private Dao<Entry, Long> mEntryDao;
-
 
     public DatabaseHelper(final Context aContext){
         super(aContext, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -53,7 +51,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase aDatabase, ConnectionSource aConnectionSource) {
+    public void onCreate(final SQLiteDatabase aDatabase, final ConnectionSource aConnectionSource) {
         try {
             TableUtils.createTable(aConnectionSource, Entry.class);
             TableUtils.createTable(aConnectionSource, Category.class);
@@ -64,7 +62,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase aDatabase, ConnectionSource aConnectionSource, int aOldVersion, int aNewVersion) {
+    public void onUpgrade(final SQLiteDatabase aDatabase, final ConnectionSource aConnectionSource, final int aOldVersion,final int aNewVersion) {
         try {
             TableUtils.dropTable(aConnectionSource, Tag.class, false);
             onCreate(aDatabase, aConnectionSource);
