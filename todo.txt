@@ -1,13 +1,20 @@
 TODO
 
 * Projektdokumente überarbeiten
-* Butterknife/Dagger einbinden/testen
-* EventBus einbinden/testen
 * Grundstruktur aufbaun mit Drawer
-* Package-Struktur einrichten
+** History- Fragment fehlt
+* Add_Category aufbaun und die Kategorien "erstellbar" machen
+* Add_Entry fertigstellen.
+* Konzept für Default-Kategorie? Ist diese löschbar usw
+* History implementieren und damit das erste zeigbare erschaffen und Entry und Category zu sehen.
+* Konzept mit den Tags
+* Tags implementieren
 
 
-DONE 
 
+DONE
+* EventBus einbinden/testen
+* Butterknife/Dagger einbinden/testen
 * ormLite einbinden und Testen
 * ormLite Entities einbaun
+* Package-Struktur einrichten

@@ -1,7 +1,5 @@
-package de.pfann.budgetmanager.activities;
+package de.pfann.budgetmanager.view.fragments.navdrawer;
 
-
-import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -21,46 +19,42 @@ public class NavigationDrawerViewModel {
         }
     };
 
-    private final Command<Void> mNavigateToFirst = new Command<Void>() {
+    private final Command<Void> mNavigateToCategory = new Command<Void>() {
         @Override
         public void execute(Void parameter) {
-            mEventBus.post(NavigationEvent.First);
+            mEventBus.post(NavigationEvent.Add_Category);
         }
     };
 
-    private final Command<Void> mNavigateToSecond = new Command<Void>() {
+    private final Command<Void> mNavigateToEntry = new Command<Void>() {
         @Override
         public void execute(Void parameter) {
-            mEventBus.post(NavigationEvent.Second);
+            mEventBus.post(NavigationEvent.Add_Entry);
         }
     };
 
 
     @Inject
     public NavigationDrawerViewModel() {
-        mEventBus.register(this);
+        // Default
     }
 
     public void setListener(Listener aListener) {
         mListener = aListener;
     }
 
-    public Command<Void> getNavigateToSecond() {
-        return mNavigateToSecond;
+    public Command<Void> getNavigateToEntry() {
+        return mNavigateToEntry;
     }
 
-    public Command<Void> getNavigateToFirst() {
-        return mNavigateToFirst;
+    public Command<Void> getNavigateToCategory() {
+        return mNavigateToCategory;
     }
 
     public Command<Void> getNavigateToHome() {
         return mNavigateToHome;
     }
 
-
-    public void onEvent(NavigationEvent event) {
-        Log.i(MainActivity.TAG,"NavigationDrawerViewModel onEven()");
-    }
 
     public interface Listener {
 

@@ -5,14 +5,15 @@
         <item
             android:id="@+id/drawer_item_home"
             android:icon="@drawable/abc_ic_voice_search_api_mtrl_alpha"
-            android:title="Mikro"/>
+            android:title="Home"/>
         <item
-            android:id="@+id/drawer_item_first"
+            android:id="@+id/drawer_item_category"
             android:icon="@drawable/ic_action_clock"
-            android:title="Uhrzeit"/>
+            android:title="Category"/>
         <item
-            android:id="@+id/drawer_item_second"
+            android:id="@+id/drawer_item_entry"
             android:icon="@drawable/ic_action_tags"
-            android:title="Tags"/>
+            android:title="Entry"/>
+
     </group>
 </menu>

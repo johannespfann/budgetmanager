@@ -3,6 +3,8 @@ package de.pfann.budgetmanager.util.events;
 
 public enum NavigationEvent {
     Home,
-    First,
-    Second
+    Add_Category,
+    Add_Entry,
+    Settings,
+    Profile
 }

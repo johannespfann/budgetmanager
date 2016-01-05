@@ -1,4 +1,4 @@
-package de.pfann.budgetmanager.activities;
+package de.pfann.budgetmanager.view.fragments.navdrawer;
 
 
 import android.app.Activity;
@@ -14,7 +14,9 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.pfann.budgetmanager.R;
-import de.pfann.budgetmanager.view.fragments.navigationdrawer.*;
+import de.pfann.budgetmanager.activities.MainActivity;
+import de.pfann.budgetmanager.view.common.bindings.MenuItemCommandBinding;
+
 
 public class NavigationDrawer implements NavigationDrawerViewModel.Listener {
 
@@ -44,8 +46,8 @@ public class NavigationDrawer implements NavigationDrawerViewModel.Listener {
         Menu menu = mNavigationView.getMenu();
 
         new MenuItemCommandBinding().bind(menu.findItem(R.id.drawer_item_home),mViewModel.getNavigateToHome());
-        new MenuItemCommandBinding().bind(menu.findItem(R.id.drawer_item_first),mViewModel.getNavigateToFirst());
-        new MenuItemCommandBinding().bind(menu.findItem(R.id.drawer_item_second),mViewModel.getNavigateToSecond());
+        new MenuItemCommandBinding().bind(menu.findItem(R.id.drawer_item_category),mViewModel.getNavigateToCategory());
+        new MenuItemCommandBinding().bind(menu.findItem(R.id.drawer_item_entry),mViewModel.getNavigateToEntry());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package de.pfann.budgetmanager.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -26,17 +25,22 @@ import de.pfann.budgetmanager.model.Category;
 import de.pfann.budgetmanager.model.Entry;
 import de.pfann.budgetmanager.util.ModelModule;
 import de.pfann.budgetmanager.util.events.NavigationEvent;
+import de.pfann.budgetmanager.view.fragments.category.AddCategoryFragment;
+import de.pfann.budgetmanager.view.fragments.home.HomeFragment;
+import de.pfann.budgetmanager.view.fragments.navdrawer.NavigationDrawer;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "budgetmanager";
 
+    private static final String HOME_FRAGMENT_LAYOUT_TAG = "home_fragment";
+    private static final String ADD_CATEGORY_FRAGMENT_LAYOUT_TAG = "add_category_fragment";
+    private static final String ADD_ENTRY_FRAGMENT_LAYOUT_TAG = "add_entry_fragment";
+
     private ActionBarDrawerToggle mActionBarBrawerToggle;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
-    private NavigationView mNavigationView;
-
     private NavigationDrawer mNavigationDrawer;
 
     private ObjectGraph mObjectGraph;
@@ -52,19 +56,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        mEventBus.register(this);
+        Log.i(TAG,"onResume");
+        //mEventBus.register(this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "Start App!");
         setContentView(R.layout.activity_main);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
         ButterKnife.bind(this);
-
         mObjectGraph = ObjectGraph.create(new ModelModule());
+
+
         try {
             CategoryDAOImpl categoryDAO = new CategoryDAOImpl(getApplicationContext());
             Category newCategory = new Category("Arbeit");
@@ -91,39 +94,18 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
+        // Drawer and Toolbar
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mNavigationView = (NavigationView) findViewById(R.id. navigation_drawer);
-
-
         mNavigationDrawer = new NavigationDrawer(this, findViewById(android.R.id.content));
-        mActionBarBrawerToggle = new ActionBarDrawerToggle
-                (
-                        this,
-                        mDrawerLayout,
-                        mToolbar,
-                        R.string.navigation_drawer_open,
-                        R.string.navigation_drawer_close
-                )
-        {
-
-        };
+        mActionBarBrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar,0,0);
         mDrawerLayout.setDrawerListener(mActionBarBrawerToggle);
         mActionBarBrawerToggle.syncState();
+        Log.i(TAG, "Post Home Event");
+        mEventBus.register(this);
+        mEventBus.post(NavigationEvent.Home);
 
-        mDrawerLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG,"wurde geklickt on DrawerLAyout");
-            }
-        });
-        mNavigationView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG,"wurde geklickt");
-            }
-        });
     }
 
     @Override
@@ -148,6 +130,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onEvent(NavigationEvent event) {
-        Log.i(MainActivity.TAG, "MainActivity onEven()");
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        /*String currentFragmentTag = getSupportFragmentManager().findFragmentById(
+                R.id.container).getTag();
+*/
+        switch(event) {
+            case Home:
+                Log.i(TAG,"Home event");
+                HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(HOME_FRAGMENT_LAYOUT_TAG);
+                if(homeFragment == null){
+                    homeFragment = new HomeFragment();
+                }
+                fragmentTransaction.replace(R.id.container, homeFragment, HOME_FRAGMENT_LAYOUT_TAG).addToBackStack(null).commit();
+                break;
+            case Add_Category:
+                Log.i(TAG,"Add_Category event");
+                AddCategoryFragment addCategoryEntry = (AddCategoryFragment) getSupportFragmentManager().findFragmentByTag(ADD_CATEGORY_FRAGMENT_LAYOUT_TAG);
+                if(addCategoryEntry == null){
+                    addCategoryEntry = new AddCategoryFragment();
+                }
+                fragmentTransaction.replace(R.id.container, addCategoryEntry, ADD_CATEGORY_FRAGMENT_LAYOUT_TAG).addToBackStack(null).commit();
+                break;
+            case Add_Entry:
+                // TODO
+                break;
+            case Settings:
+                // TODO
+                break;
+            case Profile:
+                // TODO
+                break;
+        }
+        mNavigationDrawer.closeDrawer();
     }
 }

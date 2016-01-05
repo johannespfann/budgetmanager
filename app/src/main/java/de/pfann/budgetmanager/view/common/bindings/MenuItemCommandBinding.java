@@ -1,4 +1,4 @@
-package de.pfann.budgetmanager.activities;
+package de.pfann.budgetmanager.view.common.bindings;
 
 import android.view.MenuItem;
 
