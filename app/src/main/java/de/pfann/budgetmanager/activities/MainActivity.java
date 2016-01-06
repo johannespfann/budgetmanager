@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "Post Home Event");
         mEventBus.register(this);
         mEventBus.post(NavigationEvent.Home);
-
     }
 
     @Override
@@ -115,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);  // OPEN DRAWER
                 return true;
-
         }
 
         if (mActionBarBrawerToggle.onOptionsItemSelected(item))
@@ -131,9 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onEvent(NavigationEvent event) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        /*String currentFragmentTag = getSupportFragmentManager().findFragmentById(
-                R.id.container).getTag();
-*/
+
         switch(event) {
             case Home:
                 Log.i(TAG,"Home event");
@@ -152,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.container, addCategoryEntry, ADD_CATEGORY_FRAGMENT_LAYOUT_TAG).addToBackStack(null).commit();
                 break;
             case Add_Entry:
+                // TODO
+                break;
+            case History:
                 // TODO
                 break;
             case Settings:

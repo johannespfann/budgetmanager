@@ -14,6 +14,17 @@
             android:id="@+id/drawer_item_entry"
             android:icon="@drawable/ic_action_tags"
             android:title="Entry"/>
-
+        <item
+            android:id="@+id/drawer_item_history"
+            android:icon="@drawable/ic_action_clock"
+            android:title="History"/>
+        <item
+            android:id="@+id/drawer_item_settings"
+            android:icon="@drawable/abc_btn_rating_star_on_mtrl_alpha"
+            android:title="Settings"/>
+        <item
+            android:id="@+id/drawer_item_profile"
+            android:icon="@drawable/ic_action_person"
+            android:title="Profile"/>
     </group>
 </menu>
