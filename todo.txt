@@ -1,8 +1,7 @@
 TODO
 
 * Projektdokumente überarbeiten
-* Grundstruktur aufbaun mit Drawer
-** History- Fragment fehlt
+
 * Add_Category aufbaun und die Kategorien "erstellbar" machen
 * Add_Entry fertigstellen.
 * Konzept für Default-Kategorie? Ist diese löschbar usw
@@ -13,6 +12,7 @@ TODO
 
 
 DONE
+* Grundstruktur aufbaun mit Drawer
 * EventBus einbinden/testen
 * Butterknife/Dagger einbinden/testen
 * ormLite einbinden und Testen

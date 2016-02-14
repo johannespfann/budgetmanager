@@ -24,8 +24,10 @@ import de.pfann.budgetmanager.database.EntryDAOImpl;
 import de.pfann.budgetmanager.model.Category;
 import de.pfann.budgetmanager.model.Entry;
 import de.pfann.budgetmanager.util.ModelModule;
+import de.pfann.budgetmanager.util.StorageFragment;
 import de.pfann.budgetmanager.util.events.NavigationEvent;
 import de.pfann.budgetmanager.view.fragments.category.AddCategoryFragment;
+import de.pfann.budgetmanager.view.fragments.entry.AddEntryFragment;
 import de.pfann.budgetmanager.view.fragments.home.HomeFragment;
 import de.pfann.budgetmanager.view.fragments.navdrawer.NavigationDrawer;
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String HOME_FRAGMENT_LAYOUT_TAG = "home_fragment";
     private static final String ADD_CATEGORY_FRAGMENT_LAYOUT_TAG = "add_category_fragment";
     private static final String ADD_ENTRY_FRAGMENT_LAYOUT_TAG = "add_entry_fragment";
+    private static final String TAG_STORAGE_FRAGMENT = "storage_fragment";
 
     private ActionBarDrawerToggle mActionBarBrawerToggle;
     private Toolbar mToolbar;
@@ -65,7 +68,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mObjectGraph = ObjectGraph.create(new ModelModule());
+
+        StorageFragment storageFragment = (StorageFragment) getSupportFragmentManager()
+                .findFragmentByTag(TAG_STORAGE_FRAGMENT);
+        if (storageFragment == null) {
+            storageFragment = new StorageFragment();
+            getSupportFragmentManager().beginTransaction().add(storageFragment,
+                    TAG_STORAGE_FRAGMENT).commit();
+            getSupportFragmentManager().executePendingTransactions();
+        }
+
+
+        mObjectGraph = ObjectGraph.create(new ModelModule(storageFragment));
 
 
         try {
@@ -141,23 +155,28 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case Add_Category:
                 Log.i(TAG,"Add_Category event");
-                AddCategoryFragment addCategoryEntry = (AddCategoryFragment) getSupportFragmentManager().findFragmentByTag(ADD_CATEGORY_FRAGMENT_LAYOUT_TAG);
-                if(addCategoryEntry == null){
-                    addCategoryEntry = new AddCategoryFragment();
+                AddCategoryFragment addCategoryFragment = (AddCategoryFragment) getSupportFragmentManager().findFragmentByTag(ADD_CATEGORY_FRAGMENT_LAYOUT_TAG);
+                if(addCategoryFragment == null){
+                    addCategoryFragment = new AddCategoryFragment();
                 }
-                fragmentTransaction.replace(R.id.container, addCategoryEntry, ADD_CATEGORY_FRAGMENT_LAYOUT_TAG).addToBackStack(null).commit();
+                fragmentTransaction.replace(R.id.container, addCategoryFragment, ADD_CATEGORY_FRAGMENT_LAYOUT_TAG).addToBackStack(null).commit();
                 break;
             case Add_Entry:
-                // TODO
+                Log.i(TAG,"Add_Entry event");
+                AddEntryFragment addEntryFragment = (AddEntryFragment) getSupportFragmentManager().findFragmentByTag(ADD_ENTRY_FRAGMENT_LAYOUT_TAG);
+                if(addEntryFragment == null){
+                    addEntryFragment = new AddEntryFragment();
+                }
+                fragmentTransaction.replace(R.id.container, addEntryFragment, ADD_ENTRY_FRAGMENT_LAYOUT_TAG).addToBackStack(null).commit();
                 break;
             case History:
-                // TODO
+                Log.i(TAG,"History event");
                 break;
             case Settings:
-                // TODO
+                Log.i(TAG,"Settings event");
                 break;
             case Profile:
-                // TODO
+                Log.i(TAG, "Profile event");
                 break;
         }
         mNavigationDrawer.closeDrawer();

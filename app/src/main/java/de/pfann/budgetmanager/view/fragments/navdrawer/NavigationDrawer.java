@@ -38,10 +38,10 @@ public class NavigationDrawer implements NavigationDrawerViewModel.Listener {
 
         mActivity = aActivity;
 
-        if(mViewModel == null) {
-
+        if(mViewModel != null) {
+            mViewModel.setListener(this);
         }
-        mViewModel.setListener(this);
+
 
         Menu menu = mNavigationView.getMenu();
 
