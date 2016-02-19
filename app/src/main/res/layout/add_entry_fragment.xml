@@ -22,6 +22,7 @@
                 android:src="@drawable/ic_action_news1" />
 
             <EditText
+                android:id="@+id/addentry_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -77,19 +78,19 @@
                 android:layout_weight=".20" />
 
             <TextView
-                android:id="@+id/plusminus"
+                android:id="@+id/addentry_plusminus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight=".10"
                 android:clickable="true"
                 android:onClick="change"
-                android:text="123"
+                android:text="+"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
-
             <EditText
+                android:id="@+id/addentry_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -119,6 +120,7 @@
                 android:src="@drawable/ic_action_document" />
 
             <EditText
+                android:id="@+id/addentry_memo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -185,12 +187,12 @@
                 android:layout_weight=".85"/>
 
             <ImageView
+                android:id="@+id/addentry_add_another_tag"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".15"
                 android:src="@drawable/ic_action_new_label"
-                android:clickable="true"
-                android:onClick="addNewTag"/>
+                android:clickable="true" />
 
         </LinearLayout>
     </LinearLayout>

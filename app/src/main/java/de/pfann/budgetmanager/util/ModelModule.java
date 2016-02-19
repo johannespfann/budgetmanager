@@ -3,6 +3,8 @@ package de.pfann.budgetmanager.util;
 import dagger.Module;
 import dagger.Provides;
 import de.pfann.budgetmanager.database.CategoryDAO;
+import de.pfann.budgetmanager.database.EntryDAO;
+import de.pfann.budgetmanager.database.TagDAO;
 import de.pfann.budgetmanager.view.fragments.category.AddCategoryFragment;
 import de.pfann.budgetmanager.view.fragments.entry.AddEntryFragment;
 import de.pfann.budgetmanager.view.fragments.home.HomeFragment;
@@ -27,4 +29,16 @@ public class ModelModule {
     }
 
 
+    @Provides
+    public EntryDAO getEntryDAO(){
+        return mStorageFragment.getEntryDAO();
+    }
+
+
+/*
+    @Provides
+    public TagDAO getTagDAO(){
+        return mStorageFragment.getTagDAO();
+    }
+*/
 }

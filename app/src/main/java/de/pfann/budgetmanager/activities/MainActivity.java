@@ -86,9 +86,7 @@ public class MainActivity extends AppCompatActivity {
             CategoryDAOImpl categoryDAO = new CategoryDAOImpl(getApplicationContext());
             Category newCategory = new Category("Arbeit");
             categoryDAO.persistCategory(newCategory);
-
             Date currentDate = new Date();
-
             Log.i(TAG, currentDate.toString());
             EntryDAO entryDAO = new EntryDAOImpl(getApplicationContext());
             entryDAO.addEntry(new Entry("Kosten",new Date(),newCategory));

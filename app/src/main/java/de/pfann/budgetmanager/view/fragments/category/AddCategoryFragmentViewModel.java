@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import javax.inject.Inject;
 
-import de.greenrobot.event.EventBus;
 import de.pfann.budgetmanager.activities.MainActivity;
 import de.pfann.budgetmanager.database.CategoryDAO;
 import de.pfann.budgetmanager.model.Category;
@@ -17,7 +16,6 @@ import de.pfann.budgetmanager.viewmodel.common.commands.Command;
 public class AddCategoryFragmentViewModel {
 
     private Listener mListener;
-    private EventBus mEventBus = EventBus.getDefault();
 
     @Inject
     CategoryDAO mCategoryDAO;
@@ -62,6 +60,5 @@ public class AddCategoryFragmentViewModel {
 
         String onAddCategoryClicked();
         void cleanView();
-
     }
 }

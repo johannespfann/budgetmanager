@@ -28,7 +28,6 @@ public class NavigationDrawer implements NavigationDrawerViewModel.Listener {
     @Inject
     NavigationDrawerViewModel mViewModel;
 
-
     private Activity mActivity;
 
     public NavigationDrawer(final MainActivity aActivity, View aView){
