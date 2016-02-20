@@ -25,6 +25,14 @@ public class AddEntryFragmentViewModel {
         }
     };
 
+    private final Command<Void> mChanceSignCommand = new Command<Void>() {
+        @Override
+        public void execute(Void parameter) {
+            if (mListener != null){
+                Log.i(MainActivity.TAG,"pressed chanceSign");
+            }
+        }
+    };
 
     @Inject
     public AddEntryFragmentViewModel(){
@@ -39,7 +47,9 @@ public class AddEntryFragmentViewModel {
         return mAddNewEntryCommand;
     }
 
-
+    public Command<Void> getChanceSignCommand() {
+        return mChanceSignCommand;
+    }
 
     public interface Listener{
 

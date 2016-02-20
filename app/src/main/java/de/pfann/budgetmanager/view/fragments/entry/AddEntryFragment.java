@@ -9,7 +9,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -17,12 +20,31 @@ import butterknife.Bind;
 import de.pfann.budgetmanager.R;
 import de.pfann.budgetmanager.activities.MainActivity;
 import de.pfann.budgetmanager.view.common.bindings.MenuItemCommandBinding;
+import de.pfann.budgetmanager.view.common.bindings.ViewCommandBinding;
 import de.pfann.budgetmanager.view.fragments.BaseFragment;
 
 public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentViewModel.Listener{
 
     @Bind(R.id.addentry_add_another_tag)
     public ImageView mAddAnotherTagView;
+
+    @Bind(R.id.addentry_name)
+    public EditText mNameEditText;
+
+    @Bind(R.id.addentry_spinner_category)
+    public Spinner mCategorySpinner;
+
+    @Bind(R.id.addentry_plusminus)
+    public TextView mPlusMinusTextView;
+
+    @Bind(R.id.addentry_amount)
+    public EditText mAmountEditText;
+
+    @Bind(R.id.addentry_name)
+    public EditText mEditText;
+
+
+
 
 
     @Inject
@@ -35,6 +57,10 @@ public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentV
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
         // Inflate the layout for this fragment
         Log.i(MainActivity.TAG, "onCreateView");
+
+        new ViewCommandBinding().bind(mPlusMinusTextView,mViewModel.getAddNewEntryCommand());
+        
+
         return inflater.inflate(R.layout.add_entry_fragment, container, false);
     }
 
@@ -59,6 +85,7 @@ public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentV
     public void addNewTag(final View aView){
         Log.i(MainActivity.TAG,"pressed addNewTag");
     }
+
 
 
 }

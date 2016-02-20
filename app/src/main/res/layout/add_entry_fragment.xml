@@ -84,7 +84,7 @@
                 android:layout_gravity="center"
                 android:layout_weight=".10"
                 android:clickable="true"
-                android:onClick="change"
+                android:onClick="chance"
                 android:text="+"
                 android:textSize="12dp"
                 android:textStyle="bold" />

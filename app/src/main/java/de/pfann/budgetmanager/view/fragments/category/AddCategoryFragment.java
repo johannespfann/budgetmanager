@@ -40,8 +40,6 @@ public class AddCategoryFragment extends BaseFragment implements AddCategoryFrag
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-        // Inflate the layout for this fragment
-        Log.i(MainActivity.TAG,"onCreateView");
         return inflater.inflate(R.layout.add_category_fragment, container, false);
     }
 
@@ -49,7 +47,6 @@ public class AddCategoryFragment extends BaseFragment implements AddCategoryFrag
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-        Log.i(MainActivity.TAG, "onCreateOptionsMenu");
         inflater.inflate((R.menu.add_category_menu), menu);
 
         new MenuItemCommandBinding().bind(menu.findItem(R.id.action_addCategory), mViewModel.getPersistNewCategoryCommand());
