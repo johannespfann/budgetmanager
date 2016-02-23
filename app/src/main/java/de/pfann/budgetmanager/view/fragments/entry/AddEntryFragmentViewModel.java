@@ -3,10 +3,13 @@ package de.pfann.budgetmanager.view.fragments.entry;
 
 import android.util.Log;
 
+import java.sql.SQLException;
+
 import javax.inject.Inject;
 
 import de.pfann.budgetmanager.activities.MainActivity;
 import de.pfann.budgetmanager.database.EntryDAO;
+import de.pfann.budgetmanager.model.Entry;
 import de.pfann.budgetmanager.viewmodel.common.commands.Command;
 
 public class AddEntryFragmentViewModel {
@@ -19,8 +22,14 @@ public class AddEntryFragmentViewModel {
     private final Command<Void> mAddNewEntryCommand = new Command<Void>(){
         @Override
         public void execute(Void aParameter) {
+            Log.i(MainActivity.TAG,"pressed addNewEntry");
             if(mListener != null){
-                Log.i(MainActivity.TAG,"pressed addNewEntry");
+                try {
+                    mEntryDAO.addEntry(mListener.getEntry());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
     };
@@ -53,5 +62,7 @@ public class AddEntryFragmentViewModel {
 
     public interface Listener{
 
+        Entry getEntry();
+        void chanceSign();
     }
 }

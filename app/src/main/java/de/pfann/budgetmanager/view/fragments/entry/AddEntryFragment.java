@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import de.pfann.budgetmanager.R;
 import de.pfann.budgetmanager.activities.MainActivity;
+import de.pfann.budgetmanager.model.Entry;
 import de.pfann.budgetmanager.view.common.bindings.MenuItemCommandBinding;
 import de.pfann.budgetmanager.view.common.bindings.ViewCommandBinding;
 import de.pfann.budgetmanager.view.fragments.BaseFragment;
@@ -37,14 +38,11 @@ public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentV
     @Bind(R.id.addentry_plusminus)
     public TextView mPlusMinusTextView;
 
+    @Bind(R.id.addentry_memo)
+    public EditText mMemoEditText;
+
     @Bind(R.id.addentry_amount)
     public EditText mAmountEditText;
-
-    @Bind(R.id.addentry_name)
-    public EditText mEditText;
-
-
-
 
 
     @Inject
@@ -57,16 +55,13 @@ public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentV
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
         // Inflate the layout for this fragment
         Log.i(MainActivity.TAG, "onCreateView");
-
-        new ViewCommandBinding().bind(mPlusMinusTextView,mViewModel.getAddNewEntryCommand());
-        
-
         return inflater.inflate(R.layout.add_entry_fragment, container, false);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        mViewModel.setListener(this);
         setHasOptionsMenu(true);
     }
 
@@ -78,14 +73,54 @@ public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentV
         inflater.inflate((R.menu.add_entry_menu), menu);
 
         new MenuItemCommandBinding().bind(menu.findItem(R.id.action_addCategory), mViewModel.getAddNewEntryCommand());
-        mViewModel.setListener(this);
+
+
     }
 
 
     public void addNewTag(final View aView){
-        Log.i(MainActivity.TAG,"pressed addNewTag");
+        Log.i(MainActivity.TAG, "pressed addNewTag");
     }
 
 
+    @Override
+    public Entry getEntry() {
+        Entry entry = new Entry();
+        entry.setName(mNameEditText.getText().toString());
+        entry.setSum(getSum());
+        entry.setMemo(mMemoEditText.getText().toString());
+        entry.setTags(null);
+        entry.setCategory(null);
+        return entry;
+    }
 
+    private double getSum() {
+        double amount = Double.parseDouble(mAmountEditText.getText().toString());
+        if(!isAmountPositiv()){
+            amount = 0 - amount;
+        }
+        return amount;
+    }
+
+    private boolean isAmountPositiv() {
+        switch (mPlusMinusTextView.getText().toString()){
+            case "+":
+                return true;
+            case "-":
+                return false;
+            default:
+                Log.i(MainActivity.TAG,"war wohl nix");
+        }
+        return false;
+    }
+
+    @Override
+    public void chanceSign() {
+        if (("-").equals(mPlusMinusTextView.getText().toString())){
+            mPlusMinusTextView.setText("+");
+        }
+        else{
+            mPlusMinusTextView.setText("-");
+        }
+    }
 }
