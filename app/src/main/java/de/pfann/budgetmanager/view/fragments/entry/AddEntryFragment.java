@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -55,13 +57,14 @@ public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentV
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
         // Inflate the layout for this fragment
         Log.i(MainActivity.TAG, "onCreateView");
+
         return inflater.inflate(R.layout.add_entry_fragment, container, false);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel.setListener(this);
+
         setHasOptionsMenu(true);
     }
 
@@ -77,6 +80,11 @@ public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentV
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mViewModel.setListener(this);
+    }
 
     public void addNewTag(final View aView){
         Log.i(MainActivity.TAG, "pressed addNewTag");
@@ -89,6 +97,7 @@ public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentV
         entry.setName(mNameEditText.getText().toString());
         entry.setSum(getSum());
         entry.setMemo(mMemoEditText.getText().toString());
+        entry.setCurrentDate(new Date());
         entry.setTags(null);
         entry.setCategory(null);
         return entry;
