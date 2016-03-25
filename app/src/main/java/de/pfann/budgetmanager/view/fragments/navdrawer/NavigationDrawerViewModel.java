@@ -19,10 +19,10 @@ public class NavigationDrawerViewModel {
         }
     };
 
-    private final Command<Void> mNavigateToCategory = new Command<Void>() {
+    private final Command<Void> mNavigateToBalance = new Command<Void>() {
         @Override
         public void execute(Void parameter) {
-            mEventBus.post(NavigationEvent.Add_Category);
+            mEventBus.post(NavigationEvent.Balance);
         }
     };
 
@@ -47,8 +47,9 @@ public class NavigationDrawerViewModel {
         return mNavigateToEntry;
     }
 
-    public Command<Void> getNavigateToCategory() {
-        return mNavigateToCategory;
+
+    public Command<Void> getNavigateToBalance() {
+        return mNavigateToBalance;
     }
 
     public Command<Void> getNavigateToHome() {

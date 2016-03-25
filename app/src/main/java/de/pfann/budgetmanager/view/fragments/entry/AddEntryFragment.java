@@ -46,7 +46,6 @@ public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentV
     @Bind(R.id.addentry_amount)
     public EditText mAmountEditText;
 
-
     @Inject
     public AddEntryFragmentViewModel mViewModel;
 
@@ -83,6 +82,7 @@ public class AddEntryFragment  extends BaseFragment implements AddEntryFragmentV
     @Override
     public void onStart() {
         super.onStart();
+        new ViewCommandBinding().bind(mPlusMinusTextView,mViewModel.getChanceSignCommand());
         mViewModel.setListener(this);
     }
 

@@ -4,7 +4,6 @@ import dagger.Module;
 import dagger.Provides;
 import de.pfann.budgetmanager.database.CategoryDAO;
 import de.pfann.budgetmanager.database.EntryDAO;
-import de.pfann.budgetmanager.database.TagDAO;
 import de.pfann.budgetmanager.view.fragments.category.AddCategoryFragment;
 import de.pfann.budgetmanager.view.fragments.entry.AddEntryFragment;
 import de.pfann.budgetmanager.view.fragments.home.HomeFragment;
@@ -13,7 +12,7 @@ import de.pfann.budgetmanager.view.fragments.navdrawer.NavigationDrawer;
 @SuppressWarnings("unused")
 @Module(
         injects = {
-               NavigationDrawer.class, AddEntryFragment.class,AddCategoryFragment.class, HomeFragment.class,
+               NavigationDrawer.class, AddEntryFragment.class,AddCategoryFragment.class, HomeFragment.class
         })
 public class ModelModule {
 

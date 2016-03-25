@@ -39,7 +39,9 @@ public class AddEntryFragmentViewModel {
         public void execute(Void parameter) {
             if (mListener != null){
                 Log.i(MainActivity.TAG,"pressed chanceSign");
+                mListener.chanceSign();
             }
+
         }
     };
 

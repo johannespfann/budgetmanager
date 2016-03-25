@@ -26,7 +26,6 @@ import de.pfann.budgetmanager.model.Entry;
 import de.pfann.budgetmanager.util.ModelModule;
 import de.pfann.budgetmanager.util.StorageFragment;
 import de.pfann.budgetmanager.util.events.NavigationEvent;
-import de.pfann.budgetmanager.view.fragments.category.AddCategoryFragment;
 import de.pfann.budgetmanager.view.fragments.entry.AddEntryFragment;
 import de.pfann.budgetmanager.view.fragments.home.HomeFragment;
 import de.pfann.budgetmanager.view.fragments.navdrawer.NavigationDrawer;
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "budgetmanager";
 
     private static final String HOME_FRAGMENT_LAYOUT_TAG = "home_fragment";
+    private static final String BALANCE_FRAGMENT_LAYOUT_TAG = "balance_fragment";
     private static final String ADD_CATEGORY_FRAGMENT_LAYOUT_TAG = "add_category_fragment";
     private static final String ADD_ENTRY_FRAGMENT_LAYOUT_TAG = "add_entry_fragment";
     private static final String TAG_STORAGE_FRAGMENT = "storage_fragment";
@@ -150,14 +150,6 @@ public class MainActivity extends AppCompatActivity {
                     homeFragment = new HomeFragment();
                 }
                 fragmentTransaction.replace(R.id.container, homeFragment, HOME_FRAGMENT_LAYOUT_TAG).addToBackStack(null).commit();
-                break;
-            case Add_Category:
-                Log.i(TAG,"Add_Category event");
-                AddCategoryFragment addCategoryFragment = (AddCategoryFragment) getSupportFragmentManager().findFragmentByTag(ADD_CATEGORY_FRAGMENT_LAYOUT_TAG);
-                if(addCategoryFragment == null){
-                    addCategoryFragment = new AddCategoryFragment();
-                }
-                fragmentTransaction.replace(R.id.container, addCategoryFragment, ADD_CATEGORY_FRAGMENT_LAYOUT_TAG).addToBackStack(null).commit();
                 break;
             case Add_Entry:
                 Log.i(TAG,"Add_Entry event");
