@@ -27,6 +27,7 @@ import de.pfann.budgetmanager.util.ModelModule;
 import de.pfann.budgetmanager.util.StorageFragment;
 import de.pfann.budgetmanager.util.events.NavigationEvent;
 import de.pfann.budgetmanager.view.fragments.entry.AddEntryFragment;
+import de.pfann.budgetmanager.view.fragments.history.HistoryFragment;
 import de.pfann.budgetmanager.view.fragments.home.HomeFragment;
 import de.pfann.budgetmanager.view.fragments.navdrawer.NavigationDrawer;
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "budgetmanager";
 
     private static final String HOME_FRAGMENT_LAYOUT_TAG = "home_fragment";
+    private static final String HISTORY_FRAGMENT_LAYOUT_TAG = "history_fragment";
     private static final String BALANCE_FRAGMENT_LAYOUT_TAG = "balance_fragment";
     private static final String ADD_CATEGORY_FRAGMENT_LAYOUT_TAG = "add_category_fragment";
     private static final String ADD_ENTRY_FRAGMENT_LAYOUT_TAG = "add_entry_fragment";
@@ -161,6 +163,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case History:
                 Log.i(TAG,"History event");
+                HistoryFragment historyFragment = (HistoryFragment) getSupportFragmentManager().findFragmentByTag(HISTORY_FRAGMENT_LAYOUT_TAG);
+                if(historyFragment ==  null){
+                    historyFragment = new HistoryFragment();
+                }
+                fragmentTransaction.replace(R.id.container, historyFragment, HISTORY_FRAGMENT_LAYOUT_TAG).addToBackStack(null).commit();
                 break;
             case Settings:
                 Log.i(TAG,"Settings event");

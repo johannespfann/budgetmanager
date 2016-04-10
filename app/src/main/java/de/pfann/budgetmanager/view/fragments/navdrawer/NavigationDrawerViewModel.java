@@ -33,6 +33,13 @@ public class NavigationDrawerViewModel {
         }
     };
 
+    private final Command<Void> mNavigateToHistory = new Command<Void>() {
+        @Override
+        public void execute(Void parameter) {
+            mEventBus.post(NavigationEvent.History);
+        }
+    };
+
 
     @Inject
     public NavigationDrawerViewModel() {
@@ -55,6 +62,8 @@ public class NavigationDrawerViewModel {
     public Command<Void> getNavigateToHome() {
         return mNavigateToHome;
     }
+
+    public Command<Void> getNavigateToHistory(){return mNavigateToHistory;}
 
 
     public interface Listener {

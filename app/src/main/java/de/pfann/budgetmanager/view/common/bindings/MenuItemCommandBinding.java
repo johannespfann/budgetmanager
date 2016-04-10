@@ -2,7 +2,6 @@ package de.pfann.budgetmanager.view.common.bindings;
 
 import android.view.MenuItem;
 
-import de.pfann.budgetmanager.view.common.bindings.Binding;
 import de.pfann.budgetmanager.viewmodel.common.commands.Command;
 import de.pfann.budgetmanager.viewmodel.common.commands.CommandListener;
 

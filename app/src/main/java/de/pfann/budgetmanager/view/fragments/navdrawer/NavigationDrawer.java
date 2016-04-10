@@ -46,7 +46,7 @@ public class NavigationDrawer implements NavigationDrawerViewModel.Listener {
 
         new MenuItemCommandBinding().bind(menu.findItem(R.id.drawer_item_home),mViewModel.getNavigateToHome());
         new MenuItemCommandBinding().bind(menu.findItem(R.id.drawer_item_balance),mViewModel.getNavigateToBalance());
-        //new MenuItemCommandBinding().bind(menu.findItem(R.id.drawer_item_entry),mViewModel.getNavigateToEntry());
+        new MenuItemCommandBinding().bind(menu.findItem(R.id.drawer_item_history),mViewModel.getNavigateToHistory());
     }
 
     @Override
