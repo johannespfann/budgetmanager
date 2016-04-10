@@ -16,7 +16,6 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import de.pfann.budgetmanager.R;
 import de.pfann.budgetmanager.activities.MainActivity;
-import de.pfann.budgetmanager.model.Category;
 import de.pfann.budgetmanager.view.common.bindings.MenuItemCommandBinding;
 import de.pfann.budgetmanager.view.fragments.BaseFragment;
 

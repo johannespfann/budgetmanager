@@ -2,8 +2,10 @@ package de.pfann.budgetmanager.database;
 
 
 import android.content.Context;
+
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+
 import java.sql.SQLException;
 
 import de.pfann.budgetmanager.model.Tag;

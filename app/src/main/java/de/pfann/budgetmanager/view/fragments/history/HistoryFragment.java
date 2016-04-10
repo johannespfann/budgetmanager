@@ -17,7 +17,6 @@ import de.pfann.budgetmanager.R;
 import de.pfann.budgetmanager.activities.MainActivity;
 import de.pfann.budgetmanager.model.Entry;
 import de.pfann.budgetmanager.view.fragments.BaseFragment;
-import de.pfann.budgetmanager.view.fragments.home.HomeFragmentViewModel;
 
 
 public class HistoryFragment extends BaseFragment implements HistoryFragmentViewModel.Listener {
