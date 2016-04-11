@@ -8,13 +8,13 @@ import android.widget.ListView;
 import de.pfann.budgetmanager.viewmodel.common.commands.Command;
 import de.pfann.budgetmanager.viewmodel.common.commands.CommandListener;
 
-public class ListViewItemCommandBinding implements Binding<ListView,Void>, CommandListener, ListView.OnItemClickListener {
+public class ListViewCommandBinding implements Binding<ListView,Integer>, CommandListener, ListView.OnItemClickListener {
 
-    private Command<Void> mCommand;
+    private Command<Integer> mCommand;
     private ListView mView;
 
     @Override
-    public void bind(ListView view, Command<Void> aCommand) {
+    public void bind(ListView view, Command<Integer> aCommand) {
         mCommand = aCommand;
         mView = view;
 
@@ -32,10 +32,8 @@ public class ListViewItemCommandBinding implements Binding<ListView,Void>, Comma
         mView.setEnabled(aNewValue);
     }
 
-
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        mCommand.execute(position);
     }
 }

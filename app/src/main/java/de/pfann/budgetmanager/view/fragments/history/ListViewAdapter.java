@@ -31,9 +31,11 @@ public class ListViewAdapter extends ArrayAdapter<ListViewItem> {
         }
 
         ListViewItem listViewItem = getItem(position);
+        listViewItem.setListViewPosition(position);
 
         if (listViewItem != null) {
             TextView name = (TextView) view.findViewById(R.id.history_fragment_listview_item_name);
+
 
             if (name != null) {
                 name.setText(listViewItem.getName());

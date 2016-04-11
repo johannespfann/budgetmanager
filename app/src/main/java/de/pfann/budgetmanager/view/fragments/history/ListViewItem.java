@@ -5,6 +5,9 @@ import de.pfann.budgetmanager.model.Entry;
 
 public class ListViewItem {
 
+    private long mDatabaseId;
+
+    private int mListViewPosition;
 
     private String mName;
 
@@ -12,7 +15,8 @@ public class ListViewItem {
 
 
     public ListViewItem(Entry aEntry){
-        mName = aEntry.getName() + aEntry.getId();
+        mName = aEntry.getName();
+        mDatabaseId = aEntry.getId();
         mEntry = aEntry;
     }
 
@@ -24,6 +28,15 @@ public class ListViewItem {
         return mEntry;
     }
 
+    public long getDatabaseId(){
+        return mDatabaseId;
+    }
 
+    public int getListViewPosition() {
+        return mListViewPosition;
+    }
 
+    public void setListViewPosition(int aListViewPosition) {
+        mListViewPosition = aListViewPosition;
+    }
 }
