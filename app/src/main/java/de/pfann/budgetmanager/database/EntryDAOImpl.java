@@ -2,6 +2,7 @@ package de.pfann.budgetmanager.database;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -9,6 +10,7 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import de.pfann.budgetmanager.activities.MainActivity;
 import de.pfann.budgetmanager.model.Category;
 import de.pfann.budgetmanager.model.Entry;
 
@@ -32,6 +34,7 @@ public class EntryDAOImpl implements EntryDAO{
 
     @Override
     public void deleteEntry(Entry aEntry) throws SQLException{
+        Log.i(MainActivity.TAG,"Delete Entry: " + aEntry.getId());
         mEntryDao.delete(aEntry);
     }
 

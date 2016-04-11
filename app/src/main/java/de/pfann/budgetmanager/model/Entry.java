@@ -73,7 +73,7 @@ public class Entry implements Serializable {
     }
 
     public void setName(String aName) {
-        this.mName = mName;
+        this.mName = aName;
     }
 
     public double getSum() {

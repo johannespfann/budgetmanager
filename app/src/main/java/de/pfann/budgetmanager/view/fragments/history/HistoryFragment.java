@@ -2,9 +2,11 @@ package de.pfann.budgetmanager.view.fragments.history;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ import de.pfann.budgetmanager.R;
 import de.pfann.budgetmanager.activities.MainActivity;
 import de.pfann.budgetmanager.model.Entry;
 import de.pfann.budgetmanager.view.fragments.BaseFragment;
-
 
 public class HistoryFragment extends BaseFragment implements HistoryFragmentViewModel.Listener {
 
@@ -35,6 +36,16 @@ public class HistoryFragment extends BaseFragment implements HistoryFragmentView
         List<ListViewItem> listViewItem = convertToListViewItems( mViewModel.getAllEntries());
         ListViewAdapter adapter = new ListViewAdapter(((MainActivity) getActivity()).getApplicationContext(),R.layout.history_listview_item,listViewItem);
         mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(MainActivity.TAG,"Pressed View with Id " + position);
+                ListViewItem listViewItem = (ListViewItem) mListView.getItemAtPosition(position);
+                deleteEntry(listViewItem.getEntry());
+
+                Log.i(MainActivity.TAG,"name " + listViewItem.getName());
+            }
+        });
     }
 
     private List<ListViewItem> convertToListViewItems(List<Entry> allEntries) {
@@ -56,8 +67,7 @@ public class HistoryFragment extends BaseFragment implements HistoryFragmentView
     }
 
 
-    @Override
-    public void setEntries(List<Entry> aEntries) {
-
+    public void deleteEntry(Entry aEntry) {
+        mViewModel.deleteEntry(aEntry);
     }
 }

@@ -3,18 +3,23 @@ package de.pfann.budgetmanager.view.common.bindings;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
 import de.pfann.budgetmanager.viewmodel.common.commands.Command;
 import de.pfann.budgetmanager.viewmodel.common.commands.CommandListener;
 
-public class AdapterViewItemCommandBinding implements Binding<View,Void>, CommandListener, AdapterView.OnItemClickListener {
+public class ListViewItemCommandBinding implements Binding<ListView,Void>, CommandListener, ListView.OnItemClickListener {
 
     private Command<Void> mCommand;
-    private View mView;
+    private ListView mView;
 
     @Override
-    public void bind(View view, Command<Void> aCommand) {
+    public void bind(ListView view, Command<Void> aCommand) {
         mCommand = aCommand;
+        mView = view;
+
+        mCommand.setListener(this);
+        mView.setOnItemClickListener(this);
     }
 
     @Override
@@ -27,10 +32,10 @@ public class AdapterViewItemCommandBinding implements Binding<View,Void>, Comman
         mView.setEnabled(aNewValue);
     }
 
+
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(mCommand.isExecutable()){
-            mCommand.execute(null);
-        }
+
     }
 }

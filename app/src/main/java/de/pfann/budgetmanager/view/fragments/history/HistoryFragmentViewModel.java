@@ -28,25 +28,19 @@ public class HistoryFragmentViewModel {
     public EntryDAO mEntryDAO;
 
 
-    private final Command<Void> mGetAllEntriesCommand = new Command<Void>() {
-        @Override
-        public void execute(Void parameter) {
-            Log.i(MainActivity.TAG, "get all entries");
-            if(mListener != null){
-                try {
-                    mListener.setEntries(mEntryDAO.getEntries());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
-
-
     @Inject
     public HistoryFragmentViewModel(){
         // Default
     }
+
+    public void deleteEntry(Entry aEntry){
+        try {
+            mEntryDAO.deleteEntry(aEntry);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public List<Entry> getAllEntries(){
         try {
@@ -59,6 +53,6 @@ public class HistoryFragmentViewModel {
 
 
     public interface Listener{
-        void setEntries(List<Entry> aEntries);
+
     }
 }
