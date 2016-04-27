@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         Log.i(TAG,"onResume");
-        //mEventBus.register(this);
     }
 
     @Override
@@ -79,10 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     TAG_STORAGE_FRAGMENT).commit();
             getSupportFragmentManager().executePendingTransactions();
         }
-
-
         mObjectGraph = ObjectGraph.create(new ModelModule(storageFragment));
-
 
         try {
             CategoryDAOImpl categoryDAO = new CategoryDAOImpl(getApplicationContext());
